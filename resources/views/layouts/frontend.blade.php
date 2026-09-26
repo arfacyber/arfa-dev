@@ -50,8 +50,26 @@
 <!-- Transisi background dinamis: Light (slate-50) & Dark (#0a0a0a) -->
 <body class="bg-slate-50 dark:bg-[#0a0a0a] text-slate-900 dark:text-[#f8fafc] font-sans antialiased selection:bg-blue-500 selection:text-white transition-colors duration-500">
 
-    <nav x-data="{ mobileMenuOpen: false, scrolled: false }" 
-         @scroll.window="scrolled = (window.pageYOffset > 20)"
+    <nav x-data="{ 
+            mobileMenuOpen: false, 
+            scrolled: false,
+            activeSection: '{{ request()->routeIs('home') ? 'home' : (request()->routeIs('projects.*', 'project.*') ? 'portfolio' : (request()->routeIs('blogs.*', 'blog.*') ? 'journal' : '')) }}',
+            updateActiveSection() {
+                @if(request()->routeIs('home'))
+                const sections = ['about', 'skills', 'services'];
+                let current = 'home';
+                for (let s of sections) {
+                    const el = document.getElementById(s);
+                    if (el && window.scrollY >= (el.offsetTop - 200)) {
+                        current = s;
+                    }
+                }
+                this.activeSection = current;
+                @endif
+            }
+         }" 
+         @scroll.window="scrolled = (window.pageYOffset > 20); updateActiveSection()"
+         x-init="setTimeout(() => updateActiveSection(), 100)"
          :class="scrolled ? 'bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-lg border-b border-slate-200 dark:border-[#262626] shadow-[0_4px_30px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)]' : 'bg-transparent border-b border-transparent'"
          class="fixed w-full z-50 transition-all duration-500 top-0">
         
@@ -70,29 +88,29 @@
 
                 <!-- DESKTOP MENU -->
                 <div class="hidden lg:flex items-center gap-5 xl:gap-8">
-                    <a href="{{ route('home') }}" class="relative text-sm font-bold tracking-wide transition-colors {{ request()->routeIs('home') ? 'text-blue-600 dark:text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white' }} group">
+                    <a href="{{ route('home') }}#home" :class="activeSection === 'home' ? 'text-blue-600 dark:text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'" class="relative text-sm font-bold tracking-wide transition-colors group">
                         Home
-                        <span class="absolute -bottom-2 left-0 w-full h-[2px] bg-blue-500 rounded-full origin-left transition-transform duration-300 {{ request()->routeIs('home') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}"></span>
+                        <span :class="activeSection === 'home' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'" class="absolute -bottom-2 left-0 w-full h-[2px] bg-blue-500 rounded-full origin-left transition-transform duration-300"></span>
                     </a>
-                    <a href="{{ route('home') }}#about" class="relative text-sm font-bold tracking-wide transition-colors text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white group">
+                    <a href="{{ route('home') }}#about" :class="activeSection === 'about' ? 'text-blue-600 dark:text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'" class="relative text-sm font-bold tracking-wide transition-colors group">
                         About
-                        <span class="absolute -bottom-2 left-0 w-full h-[2px] bg-blue-500 rounded-full origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100"></span>
+                        <span :class="activeSection === 'about' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'" class="absolute -bottom-2 left-0 w-full h-[2px] bg-blue-500 rounded-full origin-left transition-transform duration-300"></span>
                     </a>
-                    <a href="{{ route('home') }}#skills" class="relative text-sm font-bold tracking-wide transition-colors text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white group">
+                    <a href="{{ route('home') }}#skills" :class="activeSection === 'skills' ? 'text-blue-600 dark:text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'" class="relative text-sm font-bold tracking-wide transition-colors group">
                         Skills
-                        <span class="absolute -bottom-2 left-0 w-full h-[2px] bg-blue-500 rounded-full origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100"></span>
+                        <span :class="activeSection === 'skills' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'" class="absolute -bottom-2 left-0 w-full h-[2px] bg-blue-500 rounded-full origin-left transition-transform duration-300"></span>
                     </a>
-                    <a href="{{ route('home') }}#services" class="relative text-sm font-bold tracking-wide transition-colors text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white group">
+                    <a href="{{ route('home') }}#services" :class="activeSection === 'services' ? 'text-blue-600 dark:text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'" class="relative text-sm font-bold tracking-wide transition-colors group">
                         Services
-                        <span class="absolute -bottom-2 left-0 w-full h-[2px] bg-blue-500 rounded-full origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100"></span>
+                        <span :class="activeSection === 'services' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'" class="absolute -bottom-2 left-0 w-full h-[2px] bg-blue-500 rounded-full origin-left transition-transform duration-300"></span>
                     </a>
-                    <a href="{{ route('projects.index') }}" class="relative text-sm font-bold tracking-wide transition-colors {{ request()->routeIs('projects.*', 'project.*') ? 'text-blue-600 dark:text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white' }} group">
+                    <a href="{{ route('projects.index') }}" :class="activeSection === 'portfolio' ? 'text-blue-600 dark:text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'" class="relative text-sm font-bold tracking-wide transition-colors group">
                         Portfolio
-                        <span class="absolute -bottom-2 left-0 w-full h-[2px] bg-blue-500 rounded-full origin-left transition-transform duration-300 {{ request()->routeIs('projects.*', 'project.*') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}"></span>
+                        <span :class="activeSection === 'portfolio' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'" class="absolute -bottom-2 left-0 w-full h-[2px] bg-blue-500 rounded-full origin-left transition-transform duration-300"></span>
                     </a>
-                    <a href="{{ route('blogs.index') }}" class="relative text-sm font-bold tracking-wide transition-colors {{ request()->routeIs('blogs.*', 'blog.*') ? 'text-blue-600 dark:text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white' }} group">
+                    <a href="{{ route('blogs.index') }}" :class="activeSection === 'journal' ? 'text-blue-600 dark:text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'" class="relative text-sm font-bold tracking-wide transition-colors group">
                         Journal
-                        <span class="absolute -bottom-2 left-0 w-full h-[2px] bg-blue-500 rounded-full origin-left transition-transform duration-300 {{ request()->routeIs('blogs.*', 'blog.*') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}"></span>
+                        <span :class="activeSection === 'journal' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'" class="absolute -bottom-2 left-0 w-full h-[2px] bg-blue-500 rounded-full origin-left transition-transform duration-300"></span>
                     </a>
                 </div>
 
@@ -138,12 +156,12 @@
              style="display: none;">
             
             <div class="px-6 py-6 flex flex-col space-y-5">
-                <a @click="mobileMenuOpen = false" href="{{ route('home') }}" class="text-xl font-bold {{ request()->routeIs('home') ? 'text-blue-600 dark:text-blue-500' : 'text-slate-900 dark:text-white' }}">Home</a>
-                <a @click="mobileMenuOpen = false" href="{{ route('home') }}#about" class="text-xl font-bold text-slate-900 dark:text-white">About Me</a>
-                <a @click="mobileMenuOpen = false" href="{{ route('home') }}#skills" class="text-xl font-bold text-slate-900 dark:text-white">Skills & Tech</a>
-                <a @click="mobileMenuOpen = false" href="{{ route('home') }}#services" class="text-xl font-bold text-slate-900 dark:text-white">Services</a>
-                <a @click="mobileMenuOpen = false" href="{{ route('projects.index') }}" class="text-xl font-bold {{ request()->routeIs('projects.*', 'project.*') ? 'text-blue-600 dark:text-blue-500' : 'text-slate-900 dark:text-white' }}">Portfolio</a>
-                <a @click="mobileMenuOpen = false" href="{{ route('blogs.index') }}" class="text-xl font-bold {{ request()->routeIs('blogs.*', 'blog.*') ? 'text-blue-600 dark:text-blue-500' : 'text-slate-900 dark:text-white' }}">Journal</a>
+                <a @click="mobileMenuOpen = false" href="{{ route('home') }}#home" :class="activeSection === 'home' ? 'text-blue-600 dark:text-blue-500' : 'text-slate-900 dark:text-white'" class="text-xl font-bold">Home</a>
+                <a @click="mobileMenuOpen = false" href="{{ route('home') }}#about" :class="activeSection === 'about' ? 'text-blue-600 dark:text-blue-500' : 'text-slate-900 dark:text-white'" class="text-xl font-bold">About Me</a>
+                <a @click="mobileMenuOpen = false" href="{{ route('home') }}#skills" :class="activeSection === 'skills' ? 'text-blue-600 dark:text-blue-500' : 'text-slate-900 dark:text-white'" class="text-xl font-bold">Skills & Tech</a>
+                <a @click="mobileMenuOpen = false" href="{{ route('home') }}#services" :class="activeSection === 'services' ? 'text-blue-600 dark:text-blue-500' : 'text-slate-900 dark:text-white'" class="text-xl font-bold">Services</a>
+                <a @click="mobileMenuOpen = false" href="{{ route('projects.index') }}" :class="activeSection === 'portfolio' ? 'text-blue-600 dark:text-blue-500' : 'text-slate-900 dark:text-white'" class="text-xl font-bold">Portfolio</a>
+                <a @click="mobileMenuOpen = false" href="{{ route('blogs.index') }}" :class="activeSection === 'journal' ? 'text-blue-600 dark:text-blue-500' : 'text-slate-900 dark:text-white'" class="text-xl font-bold">Journal</a>
                 
                 <div class="pt-6 mt-2 border-t border-slate-200 dark:border-[#262626]">
                     <a @click="mobileMenuOpen = false" href="{{ route('home') }}#contact" class="flex items-center justify-between px-6 py-4 bg-blue-600 hover:bg-blue-700 rounded-xl text-white font-bold text-lg">

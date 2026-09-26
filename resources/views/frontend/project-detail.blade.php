@@ -57,19 +57,24 @@
                 </div>
                 @endif
 
-                <!-- SCREENSHOTS SECTION (Jika ada array screenshots dari DB, atau sementara pakai Thumbnail berulang) -->
-                @if($project->thumbnail)
+                <!-- SCREENSHOTS SECTION -->
+                @php
+                    // Memastikan data screenshots menjadi array yang valid dan mencegah Error 500
+                    $screenshotArray = is_string($project->screenshots) ? json_decode($project->screenshots, true) : $project->screenshots;
+                @endphp
+
+                @if(is_array($screenshotArray) && count($screenshotArray) > 0)
                 <div class="pt-10">
                     <h2 class="text-2xl font-bold text-white mb-8">Screenshots</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Screenshot 1 (Bisa diganti dengan loop data screenshot asli nanti) -->
-                        <div class="rounded-xl overflow-hidden border border-[#262626] shadow-xl group cursor-pointer">
-                            <img src="{{ asset('storage/'.$project->thumbnail) }}" alt="Screenshot 1" class="w-full h-auto group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <!-- Screenshot 2 -->
-                        <div class="rounded-xl overflow-hidden border border-[#262626] shadow-xl group cursor-pointer">
-                            <img src="{{ asset('storage/'.$project->thumbnail) }}" alt="Screenshot 2" class="w-full h-auto group-hover:scale-105 transition-transform duration-500">
-                        </div>
+                        @foreach($screenshotArray as $index => $screenshot)
+                            {{-- Abaikan jika data bernilai 'false' atau kosong --}}
+                            @if($screenshot && $screenshot !== 'false')
+                            <div class="rounded-xl overflow-hidden border border-[#262626] shadow-xl group cursor-pointer">
+                                <img src="{{ asset('storage/' . $screenshot) }}" alt="Screenshot {{ $index + 1 }}" class="w-full h-auto group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
                 @endif
@@ -102,12 +107,19 @@
                     </div>
 
                     <!-- Technologies Used -->
-                    @if($project->technologies && count($project->technologies) > 0)
+                    @php
+                        // Pengecekan aman untuk tipe data technologies
+                        $techArray = is_string($project->technologies) ? json_decode($project->technologies, true) : $project->technologies;
+                    @endphp
+
+                    @if(is_array($techArray) && count($techArray) > 0)
                     <div>
                         <h3 class="text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">Technologies Used</h3>
                         <div class="flex flex-wrap gap-2">
-                            @foreach($project->technologies as $tech)
+                            @foreach($techArray as $tech)
+                                @if(trim($tech) !== '')
                                 <span class="px-4 py-2 text-sm font-medium bg-[#0a0a0a] border border-[#262626] rounded-lg text-slate-300">{{ trim($tech) }}</span>
+                                @endif
                             @endforeach
                         </div>
                     </div>
