@@ -189,8 +189,8 @@
             <div class="flex space-x-6 text-sm font-medium text-slate-600 dark:text-slate-400">
                 <a href="https://github.com/arfacyber" target="_blank" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">GitHub</a>
                 <a href="https://instagram.com/ar_fa.354" target="_blank" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Instagram</a>
-                <a href="mailto:rizqitammagiari@gmail.com" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Email</a>
-                <a href="https://wa.me/6281359111799" target="_blank" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">WhatsApp</a>
+                <!--<a href="mailto:rizqitammagiari@gmail.com" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Email</a>
+                <a href="https://wa.me/6281359111799" target="_blank" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">WhatsApp</a>-->
             </div>
         </div>
         
