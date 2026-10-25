@@ -63,8 +63,15 @@
         
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <div class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed space-y-6 transition-colors" data-aos="fade-right" data-aos-delay="100">
-                <p>Saya adalah Full-Stack Web Developer yang fokus membangun website dan aplikasi web modern menggunakan Laravel, PHP, MySQL, JavaScript, dan teknologi web modern.</p>
-                <p>Saya senang mengubah ide menjadi produk digital yang benar-benar dapat digunakan. Saya terus meningkatkan kemampuan melalui project nyata dan membangun berbagai aplikasi web untuk memperkuat pengalaman development saya.</p>
+                <p>
+                    Saya adalah Full-Stack Web Developer yang berfokus pada pengembangan website dan aplikasi web menggunakan Laravel, PHP, MySQL, JavaScript, dan teknologi web modern.
+                </p>
+                <p>
+                    Saya senang mengubah ide menjadi produk digital yang fungsional, responsif, dan mudah digunakan. Melalui berbagai proyek nyata, saya terus mengembangkan kemampuan dalam membangun aplikasi web, memecahkan masalah, serta mempelajari praktik pengembangan yang lebih baik.
+                </p>
+                <p>
+                    Bagi saya, setiap proyek adalah kesempatan untuk belajar, meningkatkan keterampilan, dan menciptakan solusi digital yang bermanfaat.
+                </p>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
