@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    
+    <!-- Static Pages -->
+    <url>
+        <loc>https://wawansugianto.my.id</loc>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://wawansugianto.my.id/projects</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://wawansugianto.my.id/blogs</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Dynamic Projects Pages -->
+        <url>
+        <loc>https://wawansugianto.my.id/project/laundry-management-system-6ab73ac715b8a</loc>
+        <lastmod>2026-09-26T03:23:51+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+        <url>
+        <loc>https://wawansugianto.my.id/project/ascenso-class-6ab7276105152</loc>
+        <lastmod>2026-09-26T03:25:59+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+        <url>
+        <loc>https://wawansugianto.my.id/project/ecoguard-6ab7271f8bf91</loc>
+        <lastmod>2026-09-26T03:25:56+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Dynamic Blogs Pages -->
+        <url>
+        <loc>https://wawansugianto.my.id/blog/dari-ide-menjadi-ecoguard-membangun-website-interaktif-bertema-lingkungan-6ab73bd4a1395</loc>
+        <lastmod>2026-09-26T03:28:20+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+        <url>
+        <loc>https://wawansugianto.my.id/blog/membangun-project-web-pertama-saya-dengan-laravel-6ab73bb41accb</loc>
+        <lastmod>2026-09-26T03:27:48+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+</urlset>

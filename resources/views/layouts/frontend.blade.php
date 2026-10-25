@@ -46,6 +46,46 @@
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://wawansugianto.my.id/#person",
+          "name": "Muhammad Arfadhia Rizqitamma Giari",
+          "url": "https://wawansugianto.my.id/",
+          "jobTitle": "Full-Stack Web Developer",
+          "description": "Pelajar dan Full-Stack Web Developer yang berfokus pada pengembangan website menggunakan Laravel, PHP, MySQL, JavaScript, dan Tailwind CSS, serta mempelajari cybersecurity secara etis.",
+          "sameAs": [
+            "https://github.com/arfacyber",
+            "https://instagram.com/ar_fa.354"
+          ],
+          "knowsAbout": [
+            "Laravel",
+            "PHP",
+            "MySQL",
+            "JavaScript",
+            "Tailwind CSS",
+            "Web Development",
+            "Cybersecurity"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://wawansugianto.my.id/#website",
+          "url": "https://wawansugianto.my.id/",
+          "name": "ARFA.DEV",
+          "description": "Portofolio dan dokumentasi proyek web development Muhammad Arfadhia Rizqitamma Giari.",
+          "inLanguage": "id-ID",
+          "publisher": {
+            "@id": "https://wawansugianto.my.id/#person"
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 <!-- Transisi background dinamis: Light (slate-50) & Dark (#0a0a0a) -->
 <body class="bg-slate-50 dark:bg-[#0a0a0a] text-slate-900 dark:text-[#f8fafc] font-sans antialiased selection:bg-blue-500 selection:text-white transition-colors duration-500">
