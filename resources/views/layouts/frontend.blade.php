@@ -93,19 +93,21 @@
     <nav x-data="{ 
             mobileMenuOpen: false, 
             scrolled: false,
-            activeSection: '{{ request()->routeIs('home') ? 'home' : (request()->routeIs('projects.*', 'project.*') ? 'portfolio' : (request()->routeIs('blogs.*', 'blog.*') ? 'journal' : '')) }}',
+            activeSection: '{{ request()->routeIs('home') ? 'home' : (request()->routeIs('projects.*', 'project.*') ? 'portfolio' : 'journal') }}',
             updateActiveSection() {
-                @if(request()->routeIs('home'))
-                const sections = ['about', 'skills', 'services'];
-                let current = 'home';
-                for (let s of sections) {
-                    const el = document.getElementById(s);
-                    if (el && window.scrollY >= (el.offsetTop - 200)) {
-                        current = s;
+                // Gunakan pengecekan boolean JavaScript, bukan block @if Blade
+                const isHome = {{ request()->routeIs('home') ? 'true' : 'false' }};
+                if (isHome) {
+                    const sections = ['about', 'skills', 'services'];
+                    let current = 'home';
+                    for (let s of sections) {
+                        const el = document.getElementById(s);
+                        if (el && window.scrollY >= (el.offsetTop - 200)) {
+                            current = s;
+                        }
                     }
+                    this.activeSection = current;
                 }
-                this.activeSection = current;
-                @endif
             }
          }" 
          @scroll.window="scrolled = (window.pageYOffset > 20); updateActiveSection()"
