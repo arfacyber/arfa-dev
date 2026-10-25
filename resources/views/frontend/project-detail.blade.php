@@ -16,7 +16,8 @@
                 {{ $project->category }}
             </span>
             <span class="text-sm font-medium text-slate-500">
-                {{ $project->created_at->format('M Y') }}
+                {{-- FIX: Pengecekan aman untuk mencegah 500 Error jika created_at null --}}
+                {{ $project->created_at ? $project->created_at->format('M Y') : '' }}
             </span>
         </div>
 
