@@ -109,71 +109,240 @@
 </section>
 
 <!-- SKILLS SECTION -->
-<section id="skills" class="py-24 overflow-hidden bg-slate-50 dark:bg-[#0a0a0a] transition-colors duration-500">
+<section id="skills" aria-labelledby="skills-heading" class="py-24 overflow-hidden bg-slate-50 dark:bg-[#0a0a0a] transition-colors duration-500 motion-reduce:transition-none">
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
-        <div class="mb-16" data-aos="fade-up">
-            <p class="text-blue-600 dark:text-blue-500 text-sm font-semibold tracking-widest uppercase mb-2">Technical Arsenal</p>
-            <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white transition-colors">Technologies I Work With</h2>
+        <!-- Section Header -->
+        <div class="max-w-3xl mb-16" data-aos="fade-up">
+            <p class="text-blue-600 dark:text-blue-500 text-sm font-semibold tracking-widest uppercase mb-2">
+                MY TOOLKIT
+            </p>
+            <h2 id="skills-heading" class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white tracking-tight transition-colors">
+                Skills &amp; Technologies
+            </h2>
+            <p class="mt-4 text-base lg:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+                Teknologi yang saya gunakan untuk membangun website dan aplikasi web melalui proyek nyata, dari antarmuka pengguna hingga backend dan database.
+            </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Frontend Card -->
-            <div class="bg-white dark:bg-[#111111] rounded-xl p-8 border border-slate-200 dark:border-[#262626] hover:border-blue-400 dark:hover:border-blue-500/50 transition-colors shadow-sm dark:shadow-none" data-aos="fade-up" data-aos-delay="100">
-                <div class="flex items-center gap-3 mb-8">
-                    <svg class="w-6 h-6 text-blue-600 dark:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white transition-colors">Frontend</h3>
-                </div>
-                <ul class="space-y-4">
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Tailwind CSS</li>
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Blade</li>
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> JavaScript</li>
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Alpine.js</li>
-                </ul>
-            </div>
-            
-            <!-- Backend Card -->
-            <div class="bg-white dark:bg-[#111111] rounded-xl p-8 border border-slate-200 dark:border-[#262626] hover:border-red-400 dark:hover:border-red-500/50 transition-colors shadow-sm dark:shadow-none" data-aos="fade-up" data-aos-delay="200">
-                <div class="flex items-center gap-3 mb-8">
-                    <svg class="w-6 h-6 text-red-600 dark:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white transition-colors">Backend</h3>
-                </div>
-                <ul class="space-y-4">
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> PHP</li>
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Laravel</li>
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Eloquent ORM</li>
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Auth & RBAC</li>
-                </ul>
-            </div>
+        <!-- Skills Grid (1 col on mobile, 2 cols on tablet & desktop for optimal badge readability) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
 
-            <!-- Database Card -->
-            <div class="bg-white dark:bg-[#111111] rounded-xl p-8 border border-slate-200 dark:border-[#262626] hover:border-yellow-400 dark:hover:border-yellow-500/50 transition-colors shadow-sm dark:shadow-none" data-aos="fade-up" data-aos-delay="300">
-                <div class="flex items-center gap-3 mb-8">
-                    <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white transition-colors">Database</h3>
-                </div>
-                <ul class="space-y-4">
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> MySQL</li>
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Database Design</li>
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Migration</li>
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Optimization</li>
-                </ul>
-            </div>
-
-            <!-- Dev Tools Card -->
-            <div class="bg-white dark:bg-[#111111] rounded-xl p-8 border border-slate-200 dark:border-[#262626] hover:border-slate-400 dark:hover:border-slate-500/50 transition-colors shadow-sm dark:shadow-none" data-aos="fade-up" data-aos-delay="400">
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg text-slate-600 dark:text-slate-300 transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            <!-- A. Frontend Development -->
+            <article tabindex="0" class="group flex flex-col justify-between rounded-2xl bg-white dark:bg-[#111111] p-7 lg:p-8 border border-slate-200 dark:border-[#262626] hover:border-blue-500/60 dark:hover:border-blue-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-all duration-300 motion-reduce:transition-none hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 shadow-sm hover:shadow-md dark:shadow-none" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-500/20 group-hover:scale-105 motion-reduce:group-hover:scale-100 transition-transform duration-300">
+                            <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white transition-colors">
+                                Frontend Development
+                            </h3>
+                            <p class="mt-1.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Membangun antarmuka web yang responsif, interaktif, dan mudah digunakan.
+                            </p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white transition-colors">Dev Tools</h3>
                 </div>
-                <ul class="space-y-4">
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Git & GitHub</li>
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> VS Code & XAMPP</li>
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Vite</li>
-                    <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-sm"><svg class="w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> aaPanel</li>
+
+                <ul role="list" aria-label="Teknologi Frontend Development" class="flex flex-wrap gap-2.5 pt-6 mt-6 border-t border-slate-100 dark:border-[#1f1f1f]">
+                    <!-- HTML -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-orange-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                        <span>HTML</span>
+                    </li>
+                    <!-- CSS -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-blue-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+                        </svg>
+                        <span>CSS</span>
+                    </li>
+                    <!-- JavaScript -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-yellow-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <span>JavaScript</span>
+                    </li>
+                    <!-- Blade -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-red-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                        <span>Blade</span>
+                    </li>
+                    <!-- Tailwind CSS -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-cyan-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                        </svg>
+                        <span>Tailwind CSS</span>
+                    </li>
+                    <!-- Alpine.js -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-sky-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        <span>Alpine.js</span>
+                    </li>
                 </ul>
-            </div>
+            </article>
+
+            <!-- B. Backend Development -->
+            <article tabindex="0" class="group flex flex-col justify-between rounded-2xl bg-white dark:bg-[#111111] p-7 lg:p-8 border border-slate-200 dark:border-[#262626] hover:border-red-500/60 dark:hover:border-red-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-all duration-300 motion-reduce:transition-none hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 shadow-sm hover:shadow-md dark:shadow-none" data-aos="fade-up" data-aos-delay="200">
+                <div>
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-500/20 group-hover:scale-105 motion-reduce:group-hover:scale-100 transition-transform duration-300">
+                            <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white transition-colors">
+                                Backend Development
+                            </h3>
+                            <p class="mt-1.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Mengembangkan logika aplikasi, pengelolaan request, autentikasi, dan pembatasan akses pengguna.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <ul role="list" aria-label="Teknologi Backend Development" class="flex flex-wrap gap-2.5 pt-6 mt-6 border-t border-slate-100 dark:border-[#1f1f1f]">
+                    <!-- PHP -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-indigo-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                        <span>PHP</span>
+                    </li>
+                    <!-- Laravel -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-red-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                        <span>Laravel</span>
+                    </li>
+                    <!-- Eloquent ORM -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-rose-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                        </svg>
+                        <span>Eloquent ORM</span>
+                    </li>
+                    <!-- Authentication & RBAC -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-emerald-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                        <span>Authentication &amp; Role-Based Access Control (RBAC)</span>
+                    </li>
+                </ul>
+            </article>
+
+            <!-- C. Database -->
+            <article tabindex="0" class="group flex flex-col justify-between rounded-2xl bg-white dark:bg-[#111111] p-7 lg:p-8 border border-slate-200 dark:border-[#262626] hover:border-amber-500/60 dark:hover:border-amber-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-all duration-300 motion-reduce:transition-none hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 shadow-sm hover:shadow-md dark:shadow-none" data-aos="fade-up" data-aos-delay="300">
+                <div>
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-100 dark:border-amber-500/20 group-hover:scale-105 motion-reduce:group-hover:scale-100 transition-transform duration-300">
+                            <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white transition-colors">
+                                Database
+                            </h3>
+                            <p class="mt-1.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Mengelola struktur dan relasi data untuk mendukung kebutuhan aplikasi web.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <ul role="list" aria-label="Teknologi Database" class="flex flex-wrap gap-2.5 pt-6 mt-6 border-t border-slate-100 dark:border-[#1f1f1f]">
+                    <!-- MySQL -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-amber-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+                        </svg>
+                        <span>MySQL</span>
+                    </li>
+                    <!-- Database Migrations -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-blue-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        <span>Database Migrations</span>
+                    </li>
+                    <!-- Relational Data Modeling -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-purple-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path>
+                        </svg>
+                        <span>Relational Data Modeling</span>
+                    </li>
+                </ul>
+            </article>
+
+            <!-- D. Development Tools -->
+            <article tabindex="0" class="group flex flex-col justify-between rounded-2xl bg-white dark:bg-[#111111] p-7 lg:p-8 border border-slate-200 dark:border-[#262626] hover:border-emerald-500/60 dark:hover:border-emerald-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-all duration-300 motion-reduce:transition-none hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 shadow-sm hover:shadow-md dark:shadow-none" data-aos="fade-up" data-aos-delay="400">
+                <div>
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-500/20 group-hover:scale-105 motion-reduce:group-hover:scale-100 transition-transform duration-300">
+                            <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white transition-colors">
+                                Development Tools
+                            </h3>
+                            <p class="mt-1.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Mendukung pengembangan lokal, pengelolaan kode sumber, dan workflow proyek web.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <ul role="list" aria-label="Development Tools" class="flex flex-wrap gap-2.5 pt-6 mt-6 border-t border-slate-100 dark:border-[#1f1f1f]">
+                    <!-- Git -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-orange-600 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+                        </svg>
+                        <span>Git</span>
+                    </li>
+                    <!-- GitHub -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-slate-700 dark:text-slate-300 shrink-0" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+                        </svg>
+                        <span>GitHub</span>
+                    </li>
+                    <!-- Vite -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-purple-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        <span>Vite</span>
+                    </li>
+                    <!-- XAMPP -->
+                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
+                        <svg class="w-4 h-4 text-orange-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"></path>
+                        </svg>
+                        <span>XAMPP</span>
+                    </li>
+                </ul>
+            </article>
+
         </div>
     </div>
 </section>
