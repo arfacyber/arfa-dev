@@ -4,19 +4,16 @@
     <!-- Static Pages -->
     <url>
         <loc>{{ route('home') }}</loc>
-        <lastmod>{{ now()->tz('UTC')->toAtomString() }}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>{{ route('projects.index') }}</loc>
-        <lastmod>{{ now()->tz('UTC')->toAtomString() }}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
         <loc>{{ route('blogs.index') }}</loc>
-        <lastmod>{{ now()->tz('UTC')->toAtomString() }}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
