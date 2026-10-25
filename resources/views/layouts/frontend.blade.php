@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Tambahkan Alpine.js Theme Logic di tag HTML -->
 <html lang="id" class="scroll-smooth" 
       x-data="{ theme: localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') }"
       x-init="$watch('theme', val => localStorage.setItem('theme', val))"
@@ -10,31 +9,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- Dynamic Theme Color for Mobile Browser -->
     <meta name="theme-color" :content="theme === 'dark' ? '#0a0a0a' : '#f8fafc'">
-
     <meta name="google-site-verification" content="oj_BUQaFnrLH2L4-zGIt8q7RhelI-kQxRzB-JPMR0DM">
     <meta name="author" content="Muhammad Arfadhia Rizqitamma Giari">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="{{ url()->current() }}">
 
     <title>{{ $title ?? 'Arfa - Full-Stack Developer Portfolio' }}</title>
-    <meta name="description" content="{{ $description ?? 'Portofolio resmi Muhammad Arfadhia Rizqitamma Giari. Jelajahi proyek, case study, dan tulisan seputar web development.' }}">
+    <meta name="description" content="{{ $description ?? 'Portofolio resmi Muhammad Arfadhia Rizqitamma Giari.' }}">
     
-    <!-- ==========================================
-         OPEN GRAPH & TWITTER CARDS (SOCIAL SHARE)
-    =========================================== -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="{{ $title ?? 'Arfa - Full-Stack Developer Portfolio' }}">
-    <meta property="og:description" content="{{ $description ?? 'Portofolio resmi Muhammad Arfadhia Rizqitamma Giari. Jelajahi proyek, case study, dan tulisan seputar web development.' }}">
+    <meta property="og:description" content="{{ $description ?? 'Portofolio resmi Muhammad Arfadhia Rizqitamma Giari.' }}">
     <meta property="og:image" content="{{ asset('images/logo.png') }}">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $title ?? 'Arfa - Full-Stack Developer Portfolio' }}">
-    <meta name="twitter:description" content="{{ $description ?? 'Portofolio resmi Muhammad Arfadhia Rizqitamma Giari. Jelajahi proyek, case study, dan tulisan seputar web development.' }}">
+    <meta name="twitter:description" content="{{ $description ?? 'Portofolio resmi Muhammad Arfadhia Rizqitamma Giari.' }}">
     <meta name="twitter:image" content="{{ asset('images/logo.png') }}">
-    <!-- ========================================== -->
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/logo.png') }}">
@@ -46,56 +39,14 @@
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Person",
-          "@id": "https://wawansugianto.my.id/#person",
-          "name": "Muhammad Arfadhia Rizqitamma Giari",
-          "url": "https://wawansugianto.my.id/",
-          "jobTitle": "Full-Stack Web Developer",
-          "description": "Pelajar dan Full-Stack Web Developer yang berfokus pada pengembangan website menggunakan Laravel, PHP, MySQL, JavaScript, dan Tailwind CSS, serta mempelajari cybersecurity secara etis.",
-          "sameAs": [
-            "https://github.com/arfacyber",
-            "https://instagram.com/ar_fa.354"
-          ],
-          "knowsAbout": [
-            "Laravel",
-            "PHP",
-            "MySQL",
-            "JavaScript",
-            "Tailwind CSS",
-            "Web Development",
-            "Cybersecurity"
-          ]
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://wawansugianto.my.id/#website",
-          "url": "https://wawansugianto.my.id/",
-          "name": "ARFA.DEV",
-          "description": "Portofolio dan dokumentasi proyek web development Muhammad Arfadhia Rizqitamma Giari.",
-          "inLanguage": "id-ID",
-          "publisher": {
-            "@id": "https://wawansugianto.my.id/#person"
-          }
-        }
-      ]
-    }
-    </script>
 </head>
-<!-- Transisi background dinamis: Light (slate-50) & Dark (#0a0a0a) -->
 <body class="bg-slate-50 dark:bg-[#0a0a0a] text-slate-900 dark:text-[#f8fafc] font-sans antialiased selection:bg-blue-500 selection:text-white transition-colors duration-500">
 
     <nav x-data="{ 
             mobileMenuOpen: false, 
             scrolled: false,
-            activeSection: '{{ request()->routeIs('home') ? 'home' : (request()->routeIs('projects.*', 'project.*') ? 'portfolio' : 'journal') }}',
+            activeSection: '{{ request()->routeIs('home') ? 'home' : (request()->routeIs('projects.*', 'project.*') ? 'portfolio' : (request()->routeIs('blogs.*', 'blog.*') ? 'journal' : '')) }}',
             updateActiveSection() {
-                // Gunakan pengecekan boolean JavaScript, bukan block @if Blade
                 const isHome = {{ request()->routeIs('home') ? 'true' : 'false' }};
                 if (isHome) {
                     const sections = ['about', 'skills', 'services'];
@@ -118,7 +69,6 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="flex items-center justify-between h-20 md:h-24 transition-all duration-500" :class="scrolled ? 'h-16 md:h-20' : 'h-20 md:h-24'">
                 
-                <!-- LOGO -->
                 <a href="{{ route('home') }}" class="group flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center group-hover:rotate-12 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-blue-500/20">
                         <span class="text-white font-black text-lg tracking-tighter">A</span>
@@ -128,7 +78,6 @@
                     </span>
                 </a>
 
-                <!-- DESKTOP MENU -->
                 <div class="hidden lg:flex items-center gap-5 xl:gap-8">
                     <a href="{{ route('home') }}#home" :class="activeSection === 'home' ? 'text-blue-600 dark:text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'" class="relative text-sm font-bold tracking-wide transition-colors group">
                         Home
@@ -156,13 +105,9 @@
                     </a>
                 </div>
 
-                <!-- RIGHT SECTION: Theme Toggle + Contact -->
                 <div class="hidden md:flex items-center gap-4">
-                    <!-- Theme Toggle Button -->
                     <button @click="theme = theme === 'light' ? 'dark' : 'light'" class="p-2.5 rounded-full bg-slate-200 dark:bg-[#111111] text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors border border-transparent dark:border-[#262626]">
-                        <!-- Sun Icon (Tampil saat Dark) -->
                         <svg x-show="theme === 'dark'" style="display: none;" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        <!-- Moon Icon (Tampil saat Light) -->
                         <svg x-show="theme === 'light'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     </button>
 
@@ -172,7 +117,6 @@
                     </a>
                 </div>
 
-                <!-- MOBILE MENU BUTTON -->
                 <div class="lg:hidden flex items-center gap-4">
                     <button @click="theme = theme === 'light' ? 'dark' : 'light'" class="p-2 text-slate-600 dark:text-slate-400 focus:outline-none">
                         <svg x-show="theme === 'dark'" style="display: none;" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
@@ -186,7 +130,6 @@
             </div>
         </div>
 
-        <!-- MOBILE MENU DROPDOWN -->
         <div x-show="mobileMenuOpen" 
              x-transition:enter="transition ease-out duration-300"
              x-transition:enter-start="opacity-0 -translate-y-4 sm:scale-95"
@@ -231,8 +174,6 @@
             <div class="flex space-x-6 text-sm font-medium text-slate-600 dark:text-slate-400">
                 <a href="https://github.com/arfacyber" target="_blank" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">GitHub</a>
                 <a href="https://instagram.com/ar_fa.354" target="_blank" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Instagram</a>
-                <!--<a href="mailto:rizqitammagiari@gmail.com" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Email</a>
-                <a href="https://wa.me/6281359111799" target="_blank" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">WhatsApp</a>-->
             </div>
         </div>
         
