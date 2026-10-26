@@ -2,81 +2,153 @@
 
 @section('content')
 @php
-    // Deteksi apakah proyek yang sedang dibuka adalah EcoGuard
-    $isEcoGuard = str_contains(strtolower($project->slug ?? ''), 'ecoguard') || str_contains(strtolower($project->title ?? ''), 'ecoguard');
+    // 1. Identifikasi proyek secara dinamis berdasarkan slug atau title
+    $slugOrTitle = strtolower(($project->slug ?? '') . ' ' . ($project->title ?? ''));
+    $isEcoGuard = str_contains($slugOrTitle, 'ecoguard');
+    $isAscenso = str_contains($slugOrTitle, 'ascenso');
 
-    // Pastikan URL Live Demo EcoGuard mengarah ke subdomain resmi jika kosong/belum sesuai
-    $liveDemoUrl = $isEcoGuard
-        ? ($project->live_demo_url ?: 'https://ecoguard.wawansugianto.my.id')
-        : $project->live_demo_url;
-
-    // Pengecekan aman untuk tipe data screenshots & technologies dari CMS
-    $screenshotArray = is_string($project->screenshots) ? json_decode($project->screenshots, true) : $project->screenshots;
-    $ screenshotArray = is_array($screenshotArray) ? array_values(array_filter($screenshotArray, fn($item) => $item && $item !== 'false')) : [];
-
-    $techArray = is_string($project->technologies) ? json_decode($project->technologies, true) : $project->technologies;
-    if ($isEcoGuard && (!is_array($techArray) || count($techArray) === 0)) {
-        $techArray = ['Laravel', 'PHP', 'MySQL', 'Blade', 'Tailwind CSS', 'JavaScript', 'Vite'];
+    // 2. Pastikan URL Live Demo akurat sesuai proyek
+    $liveDemoUrl = $project->live_demo_url;
+    if ($isEcoGuard && empty($liveDemoUrl)) {
+        $liveDemoUrl = 'https://ecoguard.wawansugianto.my.id';
+    } elseif ($isAscenso && empty($liveDemoUrl)) {
+        $liveDemoUrl = 'https://ascenso-class.pages.dev';
     }
 
-    // Data Fitur Utama EcoGuard (Mudah disesuaikan dengan modul aktif)
-    $ecoGuardFeatures = [
-        [
-            'title' => 'Wildlife Companion: Harimau Sumatera',
-            'desc' => 'Pendamping virtual interaktif bertema satwa langka yang merespons progres aktivitas pengguna di dalam platform.',
-            'color' => 'amber',
-            'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>',
-        ],
-        [
-            'title' => 'Daily Quests',
-            'desc' => 'Sistem misi harian terstruktur yang mendorong pengguna menyelesaikan tantangan bertema lingkungan secara berkala.',
-            'color' => 'blue',
-            'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>',
-        ],
-        [
-            'title' => 'Eco-Quiz',
-            'desc' => 'Kuis edukatif interaktif seputar wawasan lingkungan, konservasi alam, dan pengelolaan limbah dengan umpan balik langsung.',
-            'color' => 'purple',
-            'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
-        ],
-        [
-            'title' => 'Simulasi Aksi: Sort Waste, Forest Guard & Ocean Clean',
-            'desc' => 'Modul aktivitas tematik untuk mengenalkan pemilahan sampah, perlindungan kawasan hutan, dan kebersihan ekosistem laut.',
-            'color' => 'emerald',
-            'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
-        ],
-        [
-            'title' => 'World Boss: Monster Sampah Plastik',
-            'desc' => 'Tantangan kolektif bergaya RPG di mana kontribusi poin aktivitas pengguna digabungkan untuk mengalahkan bos pencemar lingkungan.',
-            'color' => 'rose',
-            'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M13 10V3L4 14h7v7l9-11h-7z"></path>',
-        ],
-        [
-            'title' => 'Indonesia Reforestation Goal',
-            'desc' => 'Visualisasi target penghijauan bersama yang menampilkan progres akumulasi kontribusi pengguna di dalam platform.',
-            'color' => 'green',
-            'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>',
-        ],
-        [
-            'title' => 'Supply Depot Shop',
-            'desc' => 'Toko penukaran poin di dalam aplikasi untuk memperoleh item pendukung companion maupun atribut profil pengguna.',
-            'color' => 'cyan',
-            'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>',
-        ],
-        [
-            'title' => 'Leaderboard, ID Card & Badge Pengguna',
-            'desc' => 'Papan peringkat kompetitif serta kartu identitas digital yang menampilkan level, badge pencapaian, dan riwayat kontribusi pengguna.',
-            'color' => 'indigo',
-            'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>',
-        ],
-    ];
+    // 3. Normalisasi array Screenshots dari CMS (bebas bug & filter nilai kosong/'false')
+    $rawScreenshots = is_string($project->screenshots) ? json_decode($project->screenshots, true) : $project->screenshots;
+    $screenshotArray = is_array($rawScreenshots)
+        ? array_values(array_filter($rawScreenshots, fn($item) => !empty($item) && $item !== 'false'))
+        : [];
 
-    // Caption kontekstual untuk screenshot EcoGuard
+    // 4. Normalisasi array Technologies dari CMS
+    $rawTech = is_string($project->technologies) ? json_decode($project->technologies, true) : $project->technologies;
+    $techArray = is_array($rawTech)
+        ? array_values(array_filter(array_map('trim', $rawTech), fn($item) => $item !== ''))
+        : [];
+
+    if ($isEcoGuard && count($techArray) === 0) {
+        $techArray = ['Laravel', 'PHP', 'MySQL', 'Blade', 'Tailwind CSS', 'JavaScript', 'Vite'];
+    } elseif ($isAscenso && count($techArray) === 0) {
+        $techArray = ['HTML5', 'CSS3', 'JavaScript', 'Responsive Web Design'];
+    }
+
+    // 5. Penyesuaian Konten Overview, Challenge/Problem, dan Solution
+    $overviewText = $project->overview;
+    $challengeText = $project->challenge;
+    $solutionText = $project->solution;
+
+    if ($isEcoGuard) {
+        $overviewText = $overviewText ?: 'EcoGuard adalah platform web interaktif bertema lingkungan yang menggabungkan gamifikasi, edukasi, dan kepedulian terhadap satwa liar. Platform ini dirancang untuk membuat aktivitas menjaga lingkungan terasa lebih menarik melalui berbagai fitur interaktif.';
+    } elseif ($isAscenso) {
+        $overviewText = $overviewText ?: 'ASCENSO CLASS adalah website informasi dan dokumentasi kelas yang saya bangun dengan tampilan modern dan responsif. Website ini menyediakan informasi mengenai kelas, struktur, anggota, album, dan kontak dalam satu platform yang mudah diakses.';
+        $challengeText = $challengeText ?: 'Menyajikan informasi kelas dan dokumentasi dalam tampilan yang terorganisir, menarik, dan nyaman digunakan pada desktop maupun perangkat mobile.';
+        $solutionText = $solutionText ?: 'Menyusun informasi kelas dalam halaman yang terorganisir, menggunakan navigasi sederhana dan desain responsif agar pengguna dapat menemukan informasi yang dibutuhkan dengan mudah.';
+    }
+
+    // 6. Daftar Fitur Utama: EcoGuard vs ASCENSO CLASS
+    $activeFeatures = [];
+    if ($isEcoGuard) {
+        $activeFeatures = [
+            [
+                'title' => 'Wildlife Companion: Harimau Sumatera',
+                'desc' => 'Pendamping virtual interaktif bertema satwa langka yang merespons progres aktivitas pengguna di dalam platform.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>',
+            ],
+            [
+                'title' => 'Daily Quests',
+                'desc' => 'Daftar misi harian terstruktur yang mendorong pengguna menyelesaikan tantangan bertema lingkungan secara berkala.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>',
+            ],
+            [
+                'title' => 'Eco-Quiz',
+                'desc' => 'Kuis edukatif interaktif seputar wawasan lingkungan, konservasi alam, dan pengelolaan limbah.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
+            ],
+            [
+                'title' => 'Leaderboard',
+                'desc' => 'Papan peringkat kompetitif yang mengurutkan capaian poin pengguna berdasarkan aktivitas yang diselesaikan.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>',
+            ],
+            [
+                'title' => 'Sort Waste',
+                'desc' => 'Aktivitas interaktif pemilahan sampah untuk mengenalkan pengelolaan kategori limbah secara tepat.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>',
+            ],
+            [
+                'title' => 'Forest Guard',
+                'desc' => 'Modul aktivitas bertema perlindungan kawasan hutan dan pelestarian ekosistem darat.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>',
+            ],
+            [
+                'title' => 'Ocean Clean',
+                'desc' => 'Simulasi aksi pembersihan ekosistem laut untuk meningkatkan kepedulian terhadap polusi perairan.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
+            ],
+            [
+                'title' => 'World Boss: Monster Sampah Plastik',
+                'desc' => 'Tantangan kolektif bergaya RPG di mana kontribusi poin aktivitas pengguna digabungkan untuk mengalahkan bos pencemar plastik.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M13 10V3L4 14h7v7l9-11h-7z"></path>',
+            ],
+            [
+                'title' => 'Indonesia Reforestation Goal',
+                'desc' => 'Visualisasi target penghijauan bersama yang menampilkan progres akumulasi kontribusi pengguna di dalam platform.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
+            ],
+            [
+                'title' => 'Supply Depot Shop',
+                'desc' => 'Toko penukaran poin di dalam aplikasi untuk memperoleh item pendukung companion maupun atribut pengguna.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>',
+            ],
+            [
+                'title' => 'ID Card & Badge Pengguna',
+                'desc' => 'Kartu identitas digital yang menampilkan level, koleksi badge pencapaian, dan riwayat kontribusi pengguna.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path>',
+            ],
+        ];
+    } elseif ($isAscenso) {
+        $activeFeatures = [
+            [
+                'title' => 'Class Profile',
+                'desc' => 'Menampilkan informasi dan identitas kelas secara ringkas sebagai pengenalan utama bagi pengunjung.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>',
+            ],
+            [
+                'title' => 'Class Structure',
+                'desc' => 'Menyajikan informasi struktur organisasi dan pengurus kelas dalam tata letak yang rapi dan jelas.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path>',
+            ],
+            [
+                'title' => 'Class Members',
+                'desc' => 'Menampilkan daftar anggota kelas secara terorganisir dan responsif di berbagai perangkat.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>',
+            ],
+            [
+                'title' => 'Class Album',
+                'desc' => 'Menyediakan galeri dokumentasi foto kegiatan dan kebersamaan kelas yang mudah dijelajahi.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>',
+            ],
+            [
+                'title' => 'Contact Information',
+                'desc' => 'Menyediakan informasi kontak kelas yang tersedia agar pengunjung dapat terhubung dengan mudah.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>',
+            ],
+        ];
+    }
+
+    // 7. Caption kontekstual untuk Screenshot
     $ecoGuardCaptions = [
         0 => 'Dashboard utama EcoGuard dengan ringkasan progres, status misi, dan navigasi fitur interaktif.',
         1 => 'Tampilan Wildlife Companion (Harimau Sumatera) beserta indikator status dan interaksi pengguna.',
         2 => 'Halaman Daily Quests dan Eco-Quiz untuk aktivitas edukasi lingkungan berbasis gamifikasi.',
         3 => 'Papan peringkat (Leaderboard), profil ID Card, dan pencapaian komunitas EcoGuard.',
+    ];
+
+    $ascensoCaptions = [
+        0 => 'Tampilan halaman utama dan profil identitas ASCENSO CLASS dengan desain modern dan responsif.',
+        1 => 'Bagian struktur kelas (Class Structure) dan daftar anggota (Class Members) yang terorganisir.',
+        2 => 'Galeri dokumentasi foto kegiatan pada bagian Class Album.',
+        3 => 'Bagian informasi kontak (Contact Information) dan navigasi halaman ASCENSO CLASS.',
     ];
 @endphp
 
@@ -86,7 +158,7 @@
         <!-- Back Button -->
         <a href="{{ route('projects.index') }}" class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-500 transition-colors text-sm font-medium mb-10 inline-flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg">
             <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-            Kembali ke Portfolio
+            <span>Kembali ke Portfolio</span>
         </a>
         
         <!-- Category & Date Badge -->
@@ -97,7 +169,12 @@
             @if($isEcoGuard)
                 <span class="px-3.5 py-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold rounded-full inline-flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    Interactive Gamified Web Platform
+                    <span>Interactive Gamified Web Platform</span>
+                </span>
+            @elseif($isAscenso)
+                <span class="px-3.5 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-semibold rounded-full inline-flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                    <span>Class Information &amp; Documentation Website</span>
                 </span>
             @endif
             @if($project->created_at)
@@ -114,6 +191,8 @@
         <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
             @if($isEcoGuard && empty($project->short_description))
                 Platform web interaktif bertema lingkungan yang menggabungkan gamifikasi, edukasi, dan kepedulian terhadap satwa liar.
+            @elseif($isAscenso && empty($project->short_description))
+                Website informasi dan dokumentasi kelas dengan tampilan modern dan responsif.
             @else
                 {{ $project->short_description }}
             @endif
@@ -130,58 +209,62 @@
             <div class="lg:col-span-2 space-y-16">
                 
                 <!-- 1. PROJECT OVERVIEW -->
-                @if($project->overview || $isEcoGuard)
+                @if($overviewText)
                 <div class="p-7 sm:p-8 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626]">
                     <div class="flex items-center gap-3 mb-4">
                         <span class="w-2 h-6 bg-blue-500 rounded-full"></span>
                         <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Project Overview</h2>
                     </div>
-                    <p class="text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed whitespace-pre-line">{{ $isEcoGuard ? ($project->overview ?: "EcoGuard adalah platform web interaktif bertema lingkungan yang menggabungkan gamifikasi, edukasi, dan kepedulian terhadap satwa liar. Platform ini dirancang untuk membuat aktivitas menjaga lingkungan terasa lebih menarik melalui berbagai fitur interaktif.") : $project->overview }}</p>
+                    <p class="text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed whitespace-pre-line">{{ $overviewText }}</p>
                 </div>
                 @endif
 
-                <!-- 2. PROBLEM & SOLUTION -->
-                @if($project->challenge || $project->solution || $isEcoGuard)
+                <!-- 2. PROBLEM / CHALLENGE & SOLUTION -->
+                @if($challengeText || $solutionText || $isEcoGuard)
                 <div>
                     <div class="mb-8">
                         <p class="text-blue-600 dark:text-blue-500 text-xs font-bold tracking-widest uppercase mb-2">Context &amp; Approach</p>
-                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Problem &amp; Solution</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+                            {{ $isEcoGuard ? 'Problem & Solution' : 'The Challenge & The Solution' }}
+                        </h2>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- The Problem / Challenge -->
-                        @if($project->challenge || $isEcoGuard)
+                        @if($challengeText || $isEcoGuard)
                         <div class="p-7 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] flex flex-col">
                             <div class="flex items-center gap-3 mb-5">
                                 <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center shrink-0">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                                 </div>
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">The Problem</h3>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">
+                                    {{ $isEcoGuard ? 'The Problem' : 'The Challenge' }}
+                                </h3>
                             </div>
 
                             @if($isEcoGuard)
                                 <ul class="space-y-3.5 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
                                     <li class="flex items-start gap-3">
                                         <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2.5 shrink-0"></span>
-                                        <span>Edukasi lingkungan dapat terasa monoton jika hanya disampaikan satu arah sebagai artikel atau informasi statis.</span>
+                                        <span>Edukasi lingkungan dapat terasa monoton jika hanya disampaikan sebagai informasi.</span>
                                     </li>
                                     <li class="flex items-start gap-3">
                                         <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2.5 shrink-0"></span>
-                                        <span>Pengguna membutuhkan pengalaman interaktif dan umpan balik visual untuk menjaga keterlibatan saat mempelajari isu lingkungan.</span>
+                                        <span>Pengguna membutuhkan pengalaman interaktif untuk meningkatkan keterlibatan.</span>
                                     </li>
                                     <li class="flex items-start gap-3">
                                         <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2.5 shrink-0"></span>
-                                        <span>Informasi mengenai konservasi satwa liar dan aktivitas kepedulian lingkungan perlu dikemas dengan pendekatan yang lebih menarik.</span>
+                                        <span>Informasi dan aktivitas kepedulian lingkungan perlu dikemas dengan cara yang menarik.</span>
                                     </li>
                                 </ul>
                             @else
-                                <p class="text-slate-700 dark:text-slate-300 text-base leading-relaxed whitespace-pre-line">{{ $project->challenge }}</p>
+                                <p class="text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed whitespace-pre-line">{{ $challengeText }}</p>
                             @endif
                         </div>
                         @endif
 
                         <!-- The Solution -->
-                        @if($project->solution || $isEcoGuard)
+                        @if($solutionText || $isEcoGuard)
                         <div class="p-7 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] flex flex-col">
                             <div class="flex items-center gap-3 mb-5">
                                 <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 flex items-center justify-center shrink-0">
@@ -194,23 +277,23 @@
                                 <ul class="space-y-3.5 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
                                     <li class="flex items-start gap-3">
                                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2.5 shrink-0"></span>
-                                        <span>Menggabungkan edukasi dan aktivitas bertema lingkungan dengan mekanisme gamifikasi berbasis web.</span>
+                                        <span>Menggabungkan aktivitas lingkungan dengan mekanisme gamifikasi.</span>
                                     </li>
                                     <li class="flex items-start gap-3">
                                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2.5 shrink-0"></span>
-                                        <span>Menyediakan misi harian (Daily Quests), Eco-Quiz, serta simulasi aktivitas lingkungan yang interaktif.</span>
+                                        <span>Menyediakan quest harian dan kuis interaktif yang dapat dikerjakan pengguna.</span>
                                     </li>
                                     <li class="flex items-start gap-3">
                                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2.5 shrink-0"></span>
-                                        <span>Mengimplementasikan sistem progres pengguna, perolehan poin/reward, Supply Depot Shop, dan Leaderboard.</span>
+                                        <span>Menggunakan progres, reward, Supply Depot Shop, dan leaderboard sesuai implementasi aplikasi.</span>
                                     </li>
                                     <li class="flex items-start gap-3">
                                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2.5 shrink-0"></span>
-                                        <span>Menghadirkan fitur Wildlife Companion (Harimau Sumatera) dan target penghijauan kolektif untuk memvisualisasikan progres di dalam aplikasi.</span>
+                                        <span>Menyediakan fitur Wildlife Companion (Harimau Sumatera) dan simulasi aksi kepedulian lingkungan.</span>
                                     </li>
                                 </ul>
                             @else
-                                <p class="text-slate-700 dark:text-slate-300 text-base leading-relaxed whitespace-pre-line">{{ $project->solution }}</p>
+                                <p class="text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed whitespace-pre-line">{{ $solutionText }}</p>
                             @endif
                         </div>
                         @endif
@@ -218,19 +301,25 @@
                 </div>
                 @endif
 
-                <!-- 3. KEY FEATURES (KHUSUS ECOGUARD) -->
-                @if($isEcoGuard)
+                <!-- 3. KEY FEATURES (ECOGUARD & ASCENSO CLASS) -->
+                @if(count($activeFeatures) > 0)
                 <div>
                     <div class="mb-8">
-                        <p class="text-blue-600 dark:text-blue-500 text-xs font-bold tracking-widest uppercase mb-2">Platform Capabilities</p>
+                        <p class="text-blue-600 dark:text-blue-500 text-xs font-bold tracking-widest uppercase mb-2">
+                            {{ $isEcoGuard ? 'Platform Capabilities' : 'Website Sections' }}
+                        </p>
                         <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Key Features</h2>
                         <p class="mt-2 text-slate-600 dark:text-slate-400 text-sm sm:text-base">
-                            Fitur-fitur utama yang diimplementasikan di dalam aplikasi EcoGuard untuk mendukung pengalaman interaktif pengguna.
+                            @if($isEcoGuard)
+                                Fitur-fitur utama yang diimplementasikan di dalam aplikasi EcoGuard untuk mendukung pengalaman interaktif pengguna.
+                            @else
+                                Bagian dan fitur informasi yang tersedia di dalam website {{ $project->title }}.
+                            @endif
                         </p>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        @foreach($ecoGuardFeatures as $feature)
+                        @foreach($activeFeatures as $feature)
                         <div class="p-6 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] hover:border-blue-500/50 dark:hover:border-blue-500/40 transition-colors flex flex-col justify-between">
                             <div>
                                 <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4">
@@ -328,9 +417,13 @@
                             @foreach($screenshotArray as $index => $screenshot)
                                 @php
                                     $imgUrl = asset('storage/' . $screenshot);
-                                    $caption = $isEcoGuard
-                                        ? ($ecoGuardCaptions[$index] ?? 'Tampilan fitur aplikasi EcoGuard — Layar ' . ($index + 1))
-                                        : ('Tampilan antarmuka ' . $project->title . ' — Layar ' . ($index + 1));
+                                    if ($isEcoGuard) {
+                                        $caption = $ecoGuardCaptions[$index] ?? ('Tampilan fitur aplikasi EcoGuard — Layar ' . ($index + 1));
+                                    } elseif ($isAscenso) {
+                                        $caption = $ascensoCaptions[$index] ?? ('Tampilan halaman ASCENSO CLASS — Bagian ' . ($index + 1));
+                                    } else {
+                                        $caption = 'Tampilan antarmuka ' . $project->title . ' — Layar ' . ($index + 1);
+                                    }
                                 @endphp
                                 <figure class="rounded-2xl overflow-hidden bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] hover:border-blue-500/50 transition-all duration-300 shadow-sm flex flex-col group">
                                     <button type="button"
@@ -356,7 +449,7 @@
                     @elseif(!empty($project->thumbnail))
                         @php
                             $thumbUrl = asset('storage/' . $project->thumbnail);
-                            $thumbCaption = 'Tampilan utama aplikasi ' . $project->title;
+                            $thumbCaption = 'Tampilan utama ' . $project->title;
                         @endphp
                         <figure class="rounded-2xl overflow-hidden bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] shadow-sm">
                             <button type="button"
@@ -424,16 +517,17 @@
                                 @php
                                     $cleanTech = trim($tech);
                                     $lowerTech = strtolower($cleanTech);
+                                    $isDesignApproach = str_contains($lowerTech, 'responsive');
                                 @endphp
                                 @if($cleanTech !== '')
                                 <li class="inline-flex items-center gap-2 px-3.5 py-2 text-xs sm:text-sm font-medium bg-white dark:bg-[#111111] border border-slate-200 dark:border-[#262626] rounded-lg text-slate-700 dark:text-slate-300">
                                     @if(str_contains($lowerTech, 'laravel'))
                                         <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
-                                    @elseif(str_contains($lowerTech, 'php'))
-                                        <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                    @elseif(str_contains($lowerTech, 'php') || str_contains($lowerTech, 'html'))
+                                        <svg class="w-4 h-4 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                                     @elseif(str_contains($lowerTech, 'mysql') || str_contains($lowerTech, 'sql') || str_contains($lowerTech, 'database'))
                                         <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path></svg>
-                                    @elseif(str_contains($lowerTech, 'tailwind'))
+                                    @elseif(str_contains($lowerTech, 'tailwind') || str_contains($lowerTech, 'css'))
                                         <svg class="w-4 h-4 text-cyan-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                                     @elseif(str_contains($lowerTech, 'blade'))
                                         <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
@@ -441,10 +535,15 @@
                                         <svg class="w-4 h-4 text-yellow-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     @elseif(str_contains($lowerTech, 'vite'))
                                         <svg class="w-4 h-4 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    @elseif($isDesignApproach)
+                                        <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                                     @else
                                         <svg class="w-4 h-4 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                     @endif
                                     <span>{{ $cleanTech }}</span>
+                                    @if($isDesignApproach)
+                                        <span class="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">Approach</span>
+                                    @endif
                                 </li>
                                 @endif
                             @endforeach
