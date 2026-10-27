@@ -2,53 +2,81 @@
 
 @section('content')
 @php
-    // 1. Identifikasi proyek secara dinamis berdasarkan slug atau title
+    // 1. Identifikasi proyek secara spesifik tanpa mengganggu proyek lain
     $slugOrTitle = strtolower(($project->slug ?? '') . ' ' . ($project->title ?? ''));
-    $isEcoGuard = str_contains($slugOrTitle, 'ecoguard');
     $isAscenso = str_contains($slugOrTitle, 'ascenso');
+    $isEcoGuard = str_contains($slugOrTitle, 'ecoguard');
 
-    // 2. Pastikan URL Live Demo akurat sesuai proyek
+    // 2. Pastikan URL Live Demo mengarah ke alamat resmi masing-masing proyek
     $liveDemoUrl = $project->live_demo_url;
-    if ($isEcoGuard && empty($liveDemoUrl)) {
-        $liveDemoUrl = 'https://ecoguard.wawansugianto.my.id';
-    } elseif ($isAscenso && empty($liveDemoUrl)) {
-        $liveDemoUrl = 'https://ascenso-class.pages.dev';
+    if ($isAscenso) {
+        $liveDemoUrl = $liveDemoUrl ?: 'https://ascenso-class.pages.dev';
+    } elseif ($isEcoGuard) {
+        $liveDemoUrl = $liveDemoUrl ?: 'https://ecoguard.wawansugianto.my.id';
     }
 
-    // 3. Normalisasi array Screenshots dari CMS (bebas bug & filter nilai kosong/'false')
+    // 3. Normalisasi data Screenshots dari CMS (aman dari nilai kosong atau 'false')
     $rawScreenshots = is_string($project->screenshots) ? json_decode($project->screenshots, true) : $project->screenshots;
     $screenshotArray = is_array($rawScreenshots)
         ? array_values(array_filter($rawScreenshots, fn($item) => !empty($item) && $item !== 'false'))
         : [];
 
-    // 4. Normalisasi array Technologies dari CMS
+    // 4. Normalisasi data Technologies dari CMS
     $rawTech = is_string($project->technologies) ? json_decode($project->technologies, true) : $project->technologies;
     $techArray = is_array($rawTech)
         ? array_values(array_filter(array_map('trim', $rawTech), fn($item) => $item !== ''))
         : [];
 
-    if ($isEcoGuard && count($techArray) === 0) {
-        $techArray = ['Laravel', 'PHP', 'MySQL', 'Blade', 'Tailwind CSS', 'JavaScript', 'Vite'];
-    } elseif ($isAscenso && count($techArray) === 0) {
+    if ($isAscenso && count($techArray) === 0) {
         $techArray = ['HTML5', 'CSS3', 'JavaScript', 'Responsive Web Design'];
+    } elseif ($isEcoGuard && count($techArray) === 0) {
+        $techArray = ['Laravel', 'PHP', 'MySQL', 'Blade', 'Tailwind CSS', 'JavaScript', 'Vite'];
     }
 
-    // 5. Penyesuaian Konten Overview, Challenge/Problem, dan Solution
+    // 5. Konten Overview, Challenge, dan Solution yang telah dirapikan
     $overviewText = $project->overview;
     $challengeText = $project->challenge;
     $solutionText = $project->solution;
 
-    if ($isEcoGuard) {
+    if ($isAscenso) {
+        $overviewText = 'ASCENSO CLASS adalah website informasi dan dokumentasi kelas yang saya bangun dengan tampilan modern dan responsif. Website ini menyediakan informasi mengenai kelas, struktur, anggota, album, dan kontak dalam satu platform yang mudah diakses.';
+        $challengeText = 'Menyajikan informasi kelas dan dokumentasi dalam tampilan yang terorganisir, menarik, dan nyaman digunakan pada desktop maupun perangkat mobile.';
+        $solutionText = 'Menyusun informasi kelas dalam halaman yang terorganisir, menggunakan navigasi sederhana dan desain responsif agar pengguna dapat menemukan informasi yang dibutuhkan dengan mudah.';
+    } elseif ($isEcoGuard) {
         $overviewText = $overviewText ?: 'EcoGuard adalah platform web interaktif bertema lingkungan yang menggabungkan gamifikasi, edukasi, dan kepedulian terhadap satwa liar. Platform ini dirancang untuk membuat aktivitas menjaga lingkungan terasa lebih menarik melalui berbagai fitur interaktif.';
-    } elseif ($isAscenso) {
-        $overviewText = $overviewText ?: 'ASCENSO CLASS adalah website informasi dan dokumentasi kelas yang saya bangun dengan tampilan modern dan responsif. Website ini menyediakan informasi mengenai kelas, struktur, anggota, album, dan kontak dalam satu platform yang mudah diakses.';
-        $challengeText = $challengeText ?: 'Menyajikan informasi kelas dan dokumentasi dalam tampilan yang terorganisir, menarik, dan nyaman digunakan pada desktop maupun perangkat mobile.';
-        $solutionText = $solutionText ?: 'Menyusun informasi kelas dalam halaman yang terorganisir, menggunakan navigasi sederhana dan desain responsif agar pengguna dapat menemukan informasi yang dibutuhkan dengan mudah.';
     }
 
-    // 6. Daftar Fitur Utama: EcoGuard vs ASCENSO CLASS
+    // 6. Konfigurasi Kartu Key Features (ASCENSO CLASS & EcoGuard)
     $activeFeatures = [];
-    if ($isEcoGuard) {
+    if ($isAscenso) {
+        $activeFeatures = [
+            [
+                'title' => 'Class Profile',
+                'desc' => 'Menyajikan informasi utama dan identitas kelas secara ringkas sebagai pengenalan awal bagi pengunjung.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>',
+            ],
+            [
+                'title' => 'Class Structure',
+                'desc' => 'Menampilkan informasi struktur kepengurusan kelas dengan susunan organisasi yang jelas dan mudah dibaca.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path>',
+            ],
+            [
+                'title' => 'Class Members',
+                'desc' => 'Memuat daftar anggota kelas dalam tata letak kartu yang rapi serta responsif di layar desktop maupun mobile.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>',
+            ],
+            [
+                'title' => 'Class Album',
+                'desc' => 'Menyediakan galeri dokumentasi foto kegiatan dan momen kebersamaan kelas dalam tampilan visual yang terorganisir.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>',
+            ],
+            [
+                'title' => 'Contact Information',
+                'desc' => 'Menampilkan informasi kontak kelas yang tersedia agar pengunjung dapat terhubung dengan mudah.',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>',
+            ],
+        ];
+    } elseif ($isEcoGuard) {
         $activeFeatures = [
             [
                 'title' => 'Wildlife Companion: Harimau Sumatera',
@@ -71,18 +99,8 @@
                 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>',
             ],
             [
-                'title' => 'Sort Waste',
-                'desc' => 'Aktivitas interaktif pemilahan sampah untuk mengenalkan pengelolaan kategori limbah secara tepat.',
-                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>',
-            ],
-            [
-                'title' => 'Forest Guard',
-                'desc' => 'Modul aktivitas bertema perlindungan kawasan hutan dan pelestarian ekosistem darat.',
-                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>',
-            ],
-            [
-                'title' => 'Ocean Clean',
-                'desc' => 'Simulasi aksi pembersihan ekosistem laut untuk meningkatkan kepedulian terhadap polusi perairan.',
+                'title' => 'Sort Waste, Forest Guard & Ocean Clean',
+                'desc' => 'Modul simulasi aksi lingkungan untuk pemilahan sampah, pelestarian kawasan hutan, dan kebersihan ekosistem laut.',
                 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
             ],
             [
@@ -93,71 +111,40 @@
             [
                 'title' => 'Indonesia Reforestation Goal',
                 'desc' => 'Visualisasi target penghijauan bersama yang menampilkan progres akumulasi kontribusi pengguna di dalam platform.',
-                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
+                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>',
             ],
             [
-                'title' => 'Supply Depot Shop',
-                'desc' => 'Toko penukaran poin di dalam aplikasi untuk memperoleh item pendukung companion maupun atribut pengguna.',
+                'title' => 'Supply Depot Shop, ID Card & Badge',
+                'desc' => 'Toko penukaran poin serta kartu identitas digital yang memuat level dan koleksi badge pencapaian pengguna.',
                 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>',
-            ],
-            [
-                'title' => 'ID Card & Badge Pengguna',
-                'desc' => 'Kartu identitas digital yang menampilkan level, koleksi badge pencapaian, dan riwayat kontribusi pengguna.',
-                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path>',
-            ],
-        ];
-    } elseif ($isAscenso) {
-        $activeFeatures = [
-            [
-                'title' => 'Class Profile',
-                'desc' => 'Menampilkan informasi dan identitas kelas secara ringkas sebagai pengenalan utama bagi pengunjung.',
-                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>',
-            ],
-            [
-                'title' => 'Class Structure',
-                'desc' => 'Menyajikan informasi struktur organisasi dan pengurus kelas dalam tata letak yang rapi dan jelas.',
-                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path>',
-            ],
-            [
-                'title' => 'Class Members',
-                'desc' => 'Menampilkan daftar anggota kelas secara terorganisir dan responsif di berbagai perangkat.',
-                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>',
-            ],
-            [
-                'title' => 'Class Album',
-                'desc' => 'Menyediakan galeri dokumentasi foto kegiatan dan kebersamaan kelas yang mudah dijelajahi.',
-                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>',
-            ],
-            [
-                'title' => 'Contact Information',
-                'desc' => 'Menyediakan informasi kontak kelas yang tersedia agar pengunjung dapat terhubung dengan mudah.',
-                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>',
             ],
         ];
     }
 
-    // 7. Caption kontekstual untuk Screenshot
+    // 7. Caption kontekstual untuk Screenshot Showcase
+    $ascensoCaptions = [
+        0 => 'Halaman utama dan profil identitas ASCENSO CLASS dengan navigasi bagian terstruktur.',
+        1 => 'Tampilan informasi struktur kelas (Class Structure) dan daftar anggota kelas (Class Members).',
+        2 => 'Galeri dokumentasi foto kegiatan kelas pada bagian Class Album.',
+        3 => 'Bagian informasi kontak (Contact Information) dan tampilan responsif ASCENSO CLASS.',
+    ];
+
     $ecoGuardCaptions = [
         0 => 'Dashboard utama EcoGuard dengan ringkasan progres, status misi, dan navigasi fitur interaktif.',
         1 => 'Tampilan Wildlife Companion (Harimau Sumatera) beserta indikator status dan interaksi pengguna.',
         2 => 'Halaman Daily Quests dan Eco-Quiz untuk aktivitas edukasi lingkungan berbasis gamifikasi.',
         3 => 'Papan peringkat (Leaderboard), profil ID Card, dan pencapaian komunitas EcoGuard.',
     ];
-
-    $ascensoCaptions = [
-        0 => 'Tampilan halaman utama dan profil identitas ASCENSO CLASS dengan desain modern dan responsif.',
-        1 => 'Bagian struktur kelas (Class Structure) dan daftar anggota (Class Members) yang terorganisir.',
-        2 => 'Galeri dokumentasi foto kegiatan pada bagian Class Album.',
-        3 => 'Bagian informasi kontak (Contact Information) dan navigasi halaman ASCENSO CLASS.',
-    ];
 @endphp
 
 <!-- HEADER SECTION -->
-<section class="pt-32 pb-16 bg-slate-50 dark:bg-[#0a0a0a] border-b border-slate-200 dark:border-[#262626] transition-colors duration-500">
+<section class="pt-32 pb-16 bg-slate-50 dark:bg-[#0a0a0a] border-b border-slate-200 dark:border-[#262626] transition-colors duration-500 motion-reduce:transition-none">
     <div class="max-w-6xl mx-auto px-6 lg:px-12">
         <!-- Back Button -->
         <a href="{{ route('projects.index') }}" class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-500 transition-colors text-sm font-medium mb-10 inline-flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg">
-            <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            <svg class="w-4 h-4 group-hover:-translate-x-1 motion-reduce:group-hover:translate-x-0 transition-transform" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
             <span>Kembali ke Portfolio</span>
         </a>
         
@@ -166,15 +153,15 @@
             <span class="px-4 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold rounded-full uppercase tracking-wider">
                 {{ $project->category }}
             </span>
-            @if($isEcoGuard)
+            @if($isAscenso)
+                <span class="px-3.5 py-1.5 bg-cyan-500/10 border border-cyan-500/20 text-cyan-600 dark:text-cyan-400 text-xs font-semibold rounded-full inline-flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span>
+                    <span>Class Information &amp; Documentation Website</span>
+                </span>
+            @elseif($isEcoGuard)
                 <span class="px-3.5 py-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold rounded-full inline-flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                     <span>Interactive Gamified Web Platform</span>
-                </span>
-            @elseif($isAscenso)
-                <span class="px-3.5 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-semibold rounded-full inline-flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-                    <span>Class Information &amp; Documentation Website</span>
                 </span>
             @endif
             @if($project->created_at)
@@ -189,10 +176,10 @@
             {{ $project->title }}
         </h1>
         <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
-            @if($isEcoGuard && empty($project->short_description))
+            @if($isAscenso && empty($project->short_description))
+                Website informasi kelas dengan desain modern dan responsif untuk menampilkan profil, struktur, anggota, album, dan informasi kelas.
+            @elseif($isEcoGuard && empty($project->short_description))
                 Platform web interaktif bertema lingkungan yang menggabungkan gamifikasi, edukasi, dan kepedulian terhadap satwa liar.
-            @elseif($isAscenso && empty($project->short_description))
-                Website informasi dan dokumentasi kelas dengan tampilan modern dan responsif.
             @else
                 {{ $project->short_description }}
             @endif
@@ -201,7 +188,8 @@
 </section>
 
 <!-- CONTENT SECTION -->
-<section class="py-16 lg:py-24 bg-white dark:bg-[#111111] transition-colors duration-500" x-data="{ activeImage: null, activeCaption: '' }">
+<section class="py-16 lg:py-24 bg-white dark:bg-[#111111] transition-colors duration-500 motion-reduce:transition-none"
+         x-data="{ activeImage: null, activeCaption: '' }">
     <div class="max-w-6xl mx-auto px-6 lg:px-12">
         
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
@@ -210,32 +198,63 @@
                 
                 <!-- 1. PROJECT OVERVIEW -->
                 @if($overviewText)
-                <div class="p-7 sm:p-8 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626]">
+                <section aria-labelledby="overview-heading" class="p-7 sm:p-8 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626]">
                     <div class="flex items-center gap-3 mb-4">
-                        <span class="w-2 h-6 bg-blue-500 rounded-full"></span>
-                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Project Overview</h2>
+                        <span class="w-1.5 h-6 bg-blue-500 rounded-full" aria-hidden="true"></span>
+                        <h2 id="overview-heading" class="text-2xl font-bold text-slate-900 dark:text-white">Project Overview</h2>
                     </div>
                     <p class="text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed whitespace-pre-line">{{ $overviewText }}</p>
-                </div>
+                </section>
                 @endif
 
-                <!-- 2. PROBLEM / CHALLENGE & SOLUTION -->
+                <!-- 2. KEY FEATURES (DITAMPILKAN LEBIH AWAL UNTUK ASCENSO CLASS) -->
+                @if($isAscenso && count($activeFeatures) > 0)
+                <section aria-labelledby="ascenso-features-heading" class="space-y-6">
+                    <div>
+                        <p class="text-blue-600 dark:text-blue-500 text-xs font-bold tracking-widest uppercase mb-2">Core Sections</p>
+                        <h2 id="ascenso-features-heading" class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Key Features</h2>
+                        <p class="mt-2 text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+                            Fitur dan bagian informasi utama yang tersedia di dalam website {{ $project->title }}.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        @foreach($activeFeatures as $feature)
+                        <article tabindex="0" class="p-6 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] hover:border-blue-500/50 dark:hover:border-blue-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-all duration-300 motion-reduce:transition-none hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 flex flex-col justify-between group">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 group-hover:scale-105 motion-reduce:group-hover:scale-100 transition-transform">
+                                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">{!! $feature['icon'] !!}</svg>
+                                </div>
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">
+                                    {{ $feature['title'] }}
+                                </h3>
+                                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                    {{ $feature['desc'] }}
+                                </p>
+                            </div>
+                        </article>
+                        @endforeach
+                    </div>
+                </section>
+                @endif
+
+                <!-- 3. THE CHALLENGE & THE SOLUTION -->
                 @if($challengeText || $solutionText || $isEcoGuard)
-                <div>
-                    <div class="mb-8">
+                <section aria-labelledby="challenge-solution-heading" class="space-y-6">
+                    <div>
                         <p class="text-blue-600 dark:text-blue-500 text-xs font-bold tracking-widest uppercase mb-2">Context &amp; Approach</p>
-                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+                        <h2 id="challenge-solution-heading" class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
                             {{ $isEcoGuard ? 'Problem & Solution' : 'The Challenge & The Solution' }}
                         </h2>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- The Problem / Challenge -->
+                        <!-- The Challenge / Problem -->
                         @if($challengeText || $isEcoGuard)
                         <div class="p-7 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] flex flex-col">
                             <div class="flex items-center gap-3 mb-5">
                                 <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center shrink-0">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                                 </div>
                                 <h3 class="text-xl font-bold text-slate-900 dark:text-white">
                                     {{ $isEcoGuard ? 'The Problem' : 'The Challenge' }}
@@ -268,7 +287,7 @@
                         <div class="p-7 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] flex flex-col">
                             <div class="flex items-center gap-3 mb-5">
                                 <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 flex items-center justify-center shrink-0">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                 </div>
                                 <h3 class="text-xl font-bold text-slate-900 dark:text-white">The Solution</h3>
                             </div>
@@ -298,32 +317,26 @@
                         </div>
                         @endif
                     </div>
-                </div>
+                </section>
                 @endif
 
-                <!-- 3. KEY FEATURES (ECOGUARD & ASCENSO CLASS) -->
-                @if(count($activeFeatures) > 0)
-                <div>
-                    <div class="mb-8">
-                        <p class="text-blue-600 dark:text-blue-500 text-xs font-bold tracking-widest uppercase mb-2">
-                            {{ $isEcoGuard ? 'Platform Capabilities' : 'Website Sections' }}
-                        </p>
-                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Key Features</h2>
+                <!-- 4. KEY FEATURES & TECHNICAL HIGHLIGHTS (KHUSUS ECOGUARD) -->
+                @if($isEcoGuard && count($activeFeatures) > 0)
+                <section aria-labelledby="ecoguard-features-heading" class="space-y-6">
+                    <div>
+                        <p class="text-blue-600 dark:text-blue-500 text-xs font-bold tracking-widest uppercase mb-2">Platform Capabilities</p>
+                        <h2 id="ecoguard-features-heading" class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Key Features</h2>
                         <p class="mt-2 text-slate-600 dark:text-slate-400 text-sm sm:text-base">
-                            @if($isEcoGuard)
-                                Fitur-fitur utama yang diimplementasikan di dalam aplikasi EcoGuard untuk mendukung pengalaman interaktif pengguna.
-                            @else
-                                Bagian dan fitur informasi yang tersedia di dalam website {{ $project->title }}.
-                            @endif
+                            Fitur-fitur utama yang diimplementasikan di dalam aplikasi EcoGuard untuk mendukung pengalaman interaktif pengguna.
                         </p>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         @foreach($activeFeatures as $feature)
-                        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] hover:border-blue-500/50 dark:hover:border-blue-500/40 transition-colors flex flex-col justify-between">
+                        <article tabindex="0" class="p-6 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] hover:border-blue-500/50 dark:hover:border-blue-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors flex flex-col justify-between">
                             <div>
                                 <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">{!! $feature['icon'] !!}</svg>
+                                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">{!! $feature['icon'] !!}</svg>
                                 </div>
                                 <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">
                                     {{ $feature['title'] }}
@@ -332,18 +345,15 @@
                                     {{ $feature['desc'] }}
                                 </p>
                             </div>
-                        </div>
+                        </article>
                         @endforeach
                     </div>
-                </div>
-                @endif
+                </section>
 
-                <!-- 4. TECHNICAL HIGHLIGHTS (KHUSUS ECOGUARD) -->
-                @if($isEcoGuard)
-                <div>
-                    <div class="mb-8">
+                <section aria-labelledby="ecoguard-tech-heading" class="space-y-6">
+                    <div>
                         <p class="text-blue-600 dark:text-blue-500 text-xs font-bold tracking-widest uppercase mb-2">Under The Hood</p>
-                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Technical Highlights</h2>
+                        <h2 id="ecoguard-tech-heading" class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Technical Highlights</h2>
                         <p class="mt-2 text-slate-600 dark:text-slate-400 text-sm sm:text-base">
                             Pendekatan teknis yang diterapkan dalam membangun arsitektur dan logika aplikasi EcoGuard.
                         </p>
@@ -352,7 +362,7 @@
                     <div class="space-y-4">
                         <div class="p-6 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] flex items-start gap-4">
                             <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 flex items-center justify-center shrink-0 mt-0.5">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                             </div>
                             <div>
                                 <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Arsitektur MVC Laravel &amp; Routing Terstruktur</h3>
@@ -364,7 +374,7 @@
 
                         <div class="p-6 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] flex items-start gap-4">
                             <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center shrink-0 mt-0.5">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path></svg>
+                                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path></svg>
                             </div>
                             <div>
                                 <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Pengelolaan Database Relasional &amp; Logika Gamifikasi</h3>
@@ -373,42 +383,18 @@
                                 </p>
                             </div>
                         </div>
-
-                        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] flex items-start gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-500 flex items-center justify-center shrink-0 mt-0.5">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            </div>
-                            <div>
-                                <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Antarmuka Interaktif &amp; Responsif</h3>
-                                <p class="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                    Mengombinasikan komponen Blade, utilitas Tailwind CSS, dan JavaScript yang dibundle melalui Vite untuk menyajikan visualisasi progres, kuis, dan elemen interaktif yang responsif di berbagai ukuran layar.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] flex items-start gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                            </div>
-                            <div>
-                                <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Autentikasi Pengguna &amp; Validasi Request</h3>
-                                <p class="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                    Menerapkan sistem autentikasi sesi pengguna, proteksi CSRF bawaan Laravel pada setiap pengiriman form aktivitas, serta validasi input di sisi server.
-                                </p>
-                            </div>
-                        </div>
                     </div>
-                </div>
+                </section>
                 @endif
 
-                <!-- 5. SCREENSHOTS & VISUAL SHOWCASE -->
+                <!-- 5. SCREENSHOT SHOWCASE -->
                 @if(count($screenshotArray) > 0 || !empty($project->thumbnail))
-                <div class="pt-4">
-                    <div class="mb-8">
+                <section aria-labelledby="screenshots-heading" class="pt-4 space-y-6">
+                    <div>
                         <p class="text-blue-600 dark:text-blue-500 text-xs font-bold tracking-widest uppercase mb-2">Visual Preview</p>
-                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Screenshots &amp; Showcase</h2>
+                        <h2 id="screenshots-heading" class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Screenshot Showcase</h2>
                         <p class="mt-2 text-slate-600 dark:text-slate-400 text-sm sm:text-base">
-                            Tampilan antarmuka asli dari implementasi proyek {{ $project->title }}. Klik pada gambar untuk memperbesar.
+                            Tampilan antarmuka asli dari proyek {{ $project->title }}. Klik pada gambar untuk memperbesar.
                         </p>
                     </div>
 
@@ -417,10 +403,10 @@
                             @foreach($screenshotArray as $index => $screenshot)
                                 @php
                                     $imgUrl = asset('storage/' . $screenshot);
-                                    if ($isEcoGuard) {
-                                        $caption = $ecoGuardCaptions[$index] ?? ('Tampilan fitur aplikasi EcoGuard — Layar ' . ($index + 1));
-                                    } elseif ($isAscenso) {
+                                    if ($isAscenso) {
                                         $caption = $ascensoCaptions[$index] ?? ('Tampilan halaman ASCENSO CLASS — Bagian ' . ($index + 1));
+                                    } elseif ($isEcoGuard) {
+                                        $caption = $ecoGuardCaptions[$index] ?? ('Tampilan fitur aplikasi EcoGuard — Layar ' . ($index + 1));
                                     } else {
                                         $caption = 'Tampilan antarmuka ' . $project->title . ' — Layar ' . ($index + 1);
                                     }
@@ -432,11 +418,11 @@
                                         <img src="{{ $imgUrl }}"
                                              alt="{{ $caption }}"
                                              loading="lazy"
-                                             class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                                             class="w-full h-full object-cover object-top group-hover:scale-105 motion-reduce:group-hover:scale-100 transition-transform duration-500">
                                         <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
                                             <span class="opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-lg bg-black/75 text-white text-xs font-medium inline-flex items-center gap-1.5">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
-                                                Perbesar
+                                                <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                                                <span>Perbesar</span>
                                             </span>
                                         </div>
                                     </button>
@@ -449,12 +435,14 @@
                     @elseif(!empty($project->thumbnail))
                         @php
                             $thumbUrl = asset('storage/' . $project->thumbnail);
-                            $thumbCaption = 'Tampilan utama ' . $project->title;
+                            $thumbCaption = $isAscenso
+                                ? 'Tampilan antarmuka utama website informasi kelas ASCENSO CLASS.'
+                                : ('Tampilan utama ' . $project->title);
                         @endphp
                         <figure class="rounded-2xl overflow-hidden bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] shadow-sm">
                             <button type="button"
                                     @click="activeImage = '{{ $thumbUrl }}'; activeCaption = '{{ addslashes($thumbCaption) }}'"
-                                    class="relative overflow-hidden aspect-video w-full bg-[#0a0a0a] cursor-zoom-in block">
+                                    class="relative overflow-hidden aspect-video w-full bg-[#0a0a0a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 cursor-zoom-in block">
                                 <img src="{{ $thumbUrl }}" alt="{{ $thumbCaption }}" class="w-full h-full object-cover object-top">
                             </button>
                             <figcaption class="p-4 text-xs sm:text-sm text-slate-600 dark:text-slate-400 border-t border-slate-200 dark:border-[#262626]">
@@ -462,7 +450,7 @@
                             </figcaption>
                         </figure>
                     @endif
-                </div>
+                </section>
                 @endif
 
             </div>
@@ -474,26 +462,26 @@
                     <!-- Action Buttons Card -->
                     <div class="p-6 sm:p-7 bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] rounded-2xl flex flex-col gap-4 shadow-sm dark:shadow-none">
                         <h3 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">
-                            Project Access
+                            Project Links
                         </h3>
 
                         @if($liveDemoUrl)
                             <a href="{{ $liveDemoUrl }}" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all duration-200 text-center flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
                                 <span>Visit Live Demo</span>
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                             </a>
                         @endif
                         
                         @if($project->github_url)
                             <a href="{{ $project->github_url }}" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 bg-white dark:bg-[#111111] border border-slate-200 dark:border-[#262626] hover:border-slate-400 dark:hover:border-slate-500 text-slate-700 dark:text-slate-300 font-bold rounded-xl transition-colors text-center flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
+                                <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
                                 <span>View Source Code</span>
                             </a>
                         @else
-                            <div class="w-full py-3.5 px-5 bg-slate-100 dark:bg-[#111111] border border-slate-200 dark:border-[#262626] text-slate-500 font-semibold rounded-xl text-center flex items-center justify-center gap-2 select-none" title="Kode sumber proyek ini bersifat privat">
-                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            <button type="button" disabled class="w-full py-3.5 px-5 bg-slate-100 dark:bg-[#111111] border border-slate-200 dark:border-[#262626] text-slate-500 font-semibold rounded-xl cursor-not-allowed text-center flex items-center justify-center gap-2 select-none" title="Kode sumber proyek ini bersifat privat">
+                                <svg class="w-4 h-4 text-slate-400" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                                 <span>Private Repository</span>
-                            </div>
+                            </button>
                         @endif
 
                         @if($liveDemoUrl)
@@ -522,27 +510,31 @@
                                 @if($cleanTech !== '')
                                 <li class="inline-flex items-center gap-2 px-3.5 py-2 text-xs sm:text-sm font-medium bg-white dark:bg-[#111111] border border-slate-200 dark:border-[#262626] rounded-lg text-slate-700 dark:text-slate-300">
                                     @if(str_contains($lowerTech, 'laravel'))
-                                        <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
-                                    @elseif(str_contains($lowerTech, 'php') || str_contains($lowerTech, 'html'))
-                                        <svg class="w-4 h-4 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                        <svg class="w-4 h-4 text-red-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                                    @elseif(str_contains($lowerTech, 'html'))
+                                        <svg class="w-4 h-4 text-orange-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                    @elseif(str_contains($lowerTech, 'php'))
+                                        <svg class="w-4 h-4 text-indigo-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                                     @elseif(str_contains($lowerTech, 'mysql') || str_contains($lowerTech, 'sql') || str_contains($lowerTech, 'database'))
-                                        <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path></svg>
-                                    @elseif(str_contains($lowerTech, 'tailwind') || str_contains($lowerTech, 'css'))
-                                        <svg class="w-4 h-4 text-cyan-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                                        <svg class="w-4 h-4 text-amber-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path></svg>
+                                    @elseif(str_contains($lowerTech, 'css') || str_contains($lowerTech, 'tailwind'))
+                                        <svg class="w-4 h-4 text-blue-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
                                     @elseif(str_contains($lowerTech, 'blade'))
-                                        <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                        <svg class="w-4 h-4 text-rose-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                                     @elseif(str_contains($lowerTech, 'javascript') || str_contains($lowerTech, 'js') || str_contains($lowerTech, 'alpine'))
-                                        <svg class="w-4 h-4 text-yellow-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        <svg class="w-4 h-4 text-yellow-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     @elseif(str_contains($lowerTech, 'vite'))
-                                        <svg class="w-4 h-4 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                        <svg class="w-4 h-4 text-purple-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                                     @elseif($isDesignApproach)
-                                        <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                        <svg class="w-4 h-4 text-emerald-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                                     @else
-                                        <svg class="w-4 h-4 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <svg class="w-4 h-4 text-blue-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                     @endif
                                     <span>{{ $cleanTech }}</span>
                                     @if($isDesignApproach)
-                                        <span class="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">Approach</span>
+                                        <span class="text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20" title="Pendekatan desain antarmuka, bukan bahasa pemrograman">
+                                            Design Approach
+                                        </span>
                                     @endif
                                 </li>
                                 @endif
