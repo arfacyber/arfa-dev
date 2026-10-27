@@ -39,9 +39,9 @@
     $solutionText = $project->solution;
 
     if ($isAscenso) {
-        $overviewText = 'ASCENSO CLASS adalah website informasi dan dokumentasi kelas yang saya bangun dengan tampilan modern dan responsif. Website ini menyediakan informasi mengenai kelas, struktur, anggota, album, dan kontak dalam satu platform yang mudah diakses.';
-        $challengeText = 'Menyajikan informasi kelas dan dokumentasi dalam tampilan yang terorganisir, menarik, dan nyaman digunakan pada desktop maupun perangkat mobile.';
-        $solutionText = 'Menyusun informasi kelas dalam halaman yang terorganisir, menggunakan navigasi sederhana dan desain responsif agar pengguna dapat menemukan informasi yang dibutuhkan dengan mudah.';
+        $overviewText = $overviewText ?: 'ASCENSO CLASS adalah website informasi dan dokumentasi kelas yang saya bangun dengan tampilan modern dan responsif. Website ini menyediakan informasi mengenai kelas, struktur, anggota, album, dan kontak dalam satu platform yang mudah diakses.';
+        $challengeText = $challengeText ?: 'Menyajikan informasi kelas dan dokumentasi dalam tampilan yang terorganisir, menarik, dan nyaman digunakan pada desktop maupun perangkat mobile.';
+        $solutionText = $solutionText ?: 'Menyusun informasi kelas dalam halaman yang terorganisir, menggunakan navigasi sederhana dan desain responsif agar pengguna dapat menemukan informasi yang dibutuhkan dengan mudah.';
     } elseif ($isEcoGuard) {
         $overviewText = $overviewText ?: 'EcoGuard adalah platform web interaktif bertema lingkungan yang menggabungkan gamifikasi, edukasi, dan kepedulian terhadap satwa liar. Platform ini dirancang untuk membuat aktivitas menjaga lingkungan terasa lebih menarik melalui berbagai fitur interaktif.';
     }
