@@ -109,241 +109,210 @@
 </section>
 
 <!-- SKILLS SECTION -->
-<section id="skills" aria-labelledby="skills-heading" class="py-24 overflow-hidden bg-slate-50 dark:bg-[#0a0a0a] transition-colors duration-500 motion-reduce:transition-none">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+@php
+    $skillCategories = $skillCategories ?? [
+        [
+            'name' => 'Frontend Development',
+            'is_learning' => false,
+            'items' => [
+                [
+                    'name' => 'HTML5',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#E34F26"/></svg>',
+                ],
+                [
+                    'name' => 'CSS3',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z" fill="#1572B6"/></svg>',
+                ],
+                [
+                    'name' => 'JavaScript',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8 rounded" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect width="24" height="24" rx="3" fill="#F7DF1E"/><path d="M6.75 18.82l1.83-1.11c.35.62.67 1.15 1.44 1.15.73 0 1.2-.29 1.2-1.41v-7.63h2.25v7.66c0 2.32-1.36 3.38-3.35 3.38-1.79 0-2.83-.93-3.37-2.04zm7.97-.24l1.83-1.06c.48.79 1.11 1.37 2.22 1.37.93 0 1.53-.47 1.53-1.11 0-.77-.61-1.04-1.64-1.49l-.56-.24c-1.63-.69-2.71-1.56-2.71-3.39 0-1.69 1.29-2.97 3.3-2.97 1.43 0 2.46.5 3.2 1.81l-1.75 1.12c-.38-.69-.8-.96-1.45-.96-.66 0-1.08.42-1.08.96 0 .67.42.94 1.39 1.36l.56.24c1.91.82 2.99 1.66 2.99 3.54 0 2.03-1.59 3.14-3.73 3.14-2.09 0-3.44-.99-4.1-2.28z" fill="#000000"/></svg>',
+                ],
+                [
+                    'name' => 'Blade',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke="#FF2D20" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+                ],
+                [
+                    'name' => 'Alpine.js',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18.667 6L24 11.333 18.667 16.667 13.333 11.333 18.667 6z" fill="#77C1D2"/><path d="M5.333 6L16.333 17H5.667L0 11.333 5.333 6z" fill="#2D3441" class="dark:fill-slate-300"/></svg>',
+                ],
+                [
+                    'name' => 'React.js',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="-11.5 -10.23174 23 20.46348" fill="none" aria-hidden="true"><circle cx="0" cy="0" r="2.05" fill="#61DAFB"/><g stroke="#61DAFB" stroke-width="1" fill="none"><ellipse rx="11" ry="4.2"/><ellipse rx="11" ry="4.2" transform="rotate(60)"/><ellipse rx="11" ry="4.2" transform="rotate(120)"/></g></svg>',
+                ],
+            ],
+        ],
+        [
+            'name' => 'Backend Development',
+            'is_learning' => false,
+            'items' => [
+                [
+                    'name' => 'PHP',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><ellipse cx="12" cy="12" rx="11" ry="6.5" fill="#777BB4"/><path d="M6.3 14.2l.8-4.2h1.9c.9 0 1.4.5 1.3 1.3-.1.9-.7 1.5-1.7 1.5h-.9l-.2 1.4H6.3zm1.6-2.2h.6c.4 0 .7-.2.7-.6.1-.4-.1-.6-.6-.6h-.5l-.2 1.2zm3.2 2.2l.8-4.2h1.2l-.3 1.5h1.1l.3-1.5h1.2l-.8 4.2h-1.2l.3-1.7h-1.1l-.3 1.7h-1.2zm4.6 0l.8-4.2h1.9c.9 0 1.4.5 1.3 1.3-.1.9-.7 1.5-1.7 1.5h-.9l-.2 1.4h-1.2zm1.6-2.2h.6c.4 0 .7-.2.7-.6.1-.4-.1-.6-.6-.6h-.5l-.2 1.2z" fill="#FFFFFF"/></svg>',
+                ],
+                [
+                    'name' => 'Laravel',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M23.642 5.43a.364.364 0 01.014.1v5.149c0 .135-.073.26-.189.326l-4.323 2.49v4.934a.378.378 0 01-.188.326L9.93 23.949a.337.337 0 01-.066.028c-.008.002-.016.008-.024.01a.348.348 0 01-.192 0c-.011-.002-.02-.008-.03-.012-.02-.008-.042-.014-.062-.025L.533 18.755a.376.376 0 01-.189-.326V2.97c0-.033.005-.066.014-.098.003-.012.01-.02.014-.032a.369.369 0 01.023-.058c.004-.01.015-.018.02-.026.015-.02.03-.04.048-.055.008-.007.018-.01.026-.016.02-.014.041-.029.065-.039l4.323-2.496a.376.376 0 01.375 0L9.575 2.65c.024.01.044.025.065.039.008.006.018.009.026.016.019.015.034.035.048.055.006.008.016.016.021.026.01.019.015.038.023.058.004.012.011.02.014.032.01.032.014.065.014.098v9.652l3.572-2.064V5.53c0-.033.004-.066.013-.098.003-.01.01-.02.013-.032a.387.387 0 01.024-.058c.005-.01.015-.018.02-.026.014-.02.03-.04.048-.055.008-.007.018-.01.026-.016.02-.014.04-.029.065-.039l4.323-2.496a.376.376 0 01.375 0l4.323 2.496c.023.01.044.025.065.039.008.006.018.009.025.016.019.015.034.035.048.055.006.008.016.016.021.026.01.019.016.038.024.058.003.012.01.02.013.032z" fill="#FF2D20"/></svg>',
+                ],
+            ],
+        ],
+        [
+            'name' => 'Database',
+            'is_learning' => false,
+            'items' => [
+                [
+                    'name' => 'MySQL',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="#00758F" stroke-width="1.8"/><path d="M4 6v6c0 1.657 3.582 3 8 3s8-1.343 8-3V6" stroke="#00758F" stroke-width="1.8"/><path d="M4 12v6c0 1.657 3.582 3 8 3s8-1.343 8-3v-6" stroke="#F29111" stroke-width="1.8"/></svg>',
+                ],
+            ],
+        ],
+        [
+            'name' => 'Styling & UI',
+            'is_learning' => false,
+            'items' => [
+                [
+                    'name' => 'Tailwind CSS',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z" fill="#06B6D4"/></svg>',
+                ],
+            ],
+        ],
+        [
+            'name' => 'Development Tools',
+            'is_learning' => false,
+            'items' => [
+                [
+                    'name' => 'Git',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M23.546 10.93L13.067.452a1.55 1.55 0 00-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 012.327 2.341l2.658 2.66a1.838 1.838 0 11-1.103 1.035l-2.48-2.48v6.53a1.84 1.84 0 11-1.515-.046V8.79a1.838 1.838 0 01-.998-2.41L7.63 3.652.452 10.83a1.55 1.55 0 000 2.188l10.48 10.48a1.55 1.55 0 002.187 0l10.427-10.38a1.55 1.55 0 000-2.188z" fill="#F05032"/></svg>',
+                ],
+                [
+                    'name' => 'GitHub',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8 text-slate-900 dark:text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>',
+                ],
+                [
+                    'name' => 'Vite',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22.9 3.6L12.6 22.1c-.2.4-.8.4-1.1 0L1.1 3.6c-.3-.5.2-1 .7-.9l10.2 1.8c.1 0 .2 0 .3 0l10-1.8c.5-.1.9.4.6.9z" fill="#646CFF"/><path d="M16.5 2L9 3.5c-.2 0-.4.2-.4.4l-.5 7.9c0 .3.3.5.5.4l2.1-.5c.3-.1.6.2.5.5l-.6 3.1c-.1.3.2.6.5.5l1.3-.4c.3-.1.6.2.5.5l-1 4.8c-.1.4.4.6.6.3l6.4-9.8c.2-.3-.1-.7-.4-.6l-2.2.4c-.3.1-.6-.2-.5-.5L17 2.5c.1-.3-.2-.6-.5-.5z" fill="#FFD62E"/></svg>',
+                ],
+                [
+                    'name' => 'XAMPP',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="4" fill="#FB7A24"/><path d="M7.5 7.5l9 9m0-9l-9 9" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/></svg>',
+                ],
+            ],
+        ],
+        [
+            'name' => 'Currently Learning',
+            'is_learning' => true,
+            'items' => [
+                [
+                    'name' => 'Next.js',
+                    'learning' => true,
+                    'svg' => '<svg class="w-8 h-8 text-slate-900 dark:text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10c2.14 0 4.123-.672 5.753-1.815L9.625 9.172v6.953h-1.45V7.2h1.512l8.938 11.97A9.956 9.956 0 0022 12c0-5.523-4.477-10-10-10zm3.825 11.6h-1.45V7.2h1.45v6.4z"/></svg>',
+                ],
+                [
+                    'name' => 'TypeScript',
+                    'learning' => true,
+                    'svg' => '<svg class="w-8 h-8 rounded" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect width="24" height="24" rx="3" fill="#3178C6"/><path d="M10.45 11.45H7.65v8.05H5.55v-8.05H2.75V9.7h7.7v1.75zm4.1 8.2c-1.55 0-2.75-.45-3.55-1.15l.9-1.5c.65.55 1.55.95 2.55.95.95 0 1.5-.4 1.5-1.05 0-.6-.45-.9-1.7-1.35-1.75-.6-2.85-1.35-2.85-2.9 0-1.65 1.35-2.8 3.45-2.8 1.35 0 2.4.35 3.15.9l-.85 1.5c-.6-.4-1.35-.7-2.25-.7-.9 0-1.4.4-1.4.95 0 .6.5.85 1.75 1.3 1.75.6 2.8 1.4 2.8 2.95 0 1.75-1.4 2.9-3.5 2.9z" fill="#FFFFFF"/></svg>',
+                ],
+            ],
+        ],
+    ];
+@endphp
+
+<section id="skills" aria-labelledby="skills-heading" class="relative py-24 overflow-hidden bg-slate-50 dark:bg-[#0a0a0a] transition-colors duration-500 motion-reduce:transition-none">
+    <!-- Subtle Dark-Futuristic Ambient Glow (Visible in Dark Mode) -->
+    <div class="pointer-events-none absolute inset-0 hidden dark:block overflow-hidden" aria-hidden="true">
+        <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[550px] h-[250px] bg-blue-600/5 blur-[120px] rounded-full"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-12">
+        
         <!-- Section Header -->
         <div class="max-w-3xl mb-16" data-aos="fade-up">
             <p class="text-blue-600 dark:text-blue-500 text-sm font-semibold tracking-widest uppercase mb-2">
-                MY TOOLKIT
+                Technical Arsenal
             </p>
             <h2 id="skills-heading" class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white tracking-tight transition-colors">
                 Skills &amp; Technologies
             </h2>
             <p class="mt-4 text-base lg:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                Teknologi yang saya gunakan untuk membangun website dan aplikasi web melalui proyek nyata, dari antarmuka pengguna hingga backend dan database.
+                Teknologi yang saya gunakan untuk membangun website dan aplikasi web modern, beserta teknologi yang sedang saya eksplorasi.
             </p>
         </div>
 
-        <!-- Skills Grid (1 col on mobile, 2 cols on tablet & desktop for optimal badge readability) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        <!-- 3-Column Desktop / 2-Column Tablet / 1-Column Mobile Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
+            @foreach($skillCategories as $index => $category)
+                @php
+                    $isLearningCard = !empty($category['is_learning']);
+                @endphp
+                <article class="group rounded-2xl bg-white dark:bg-[#0f1117]/90 border {{ $isLearningCard ? 'border-dashed border-amber-400/60 dark:border-amber-500/30 hover:border-amber-500 dark:hover:border-amber-400/60 dark:hover:shadow-[0_0_30px_-10px_rgba(245,158,11,0.18)]' : 'border-slate-200 dark:border-[#222631] hover:border-blue-500/50 dark:hover:border-blue-500/40 dark:hover:shadow-[0_0_30px_-10px_rgba(59,130,246,0.2)]' }} p-6 sm:p-7 transition-all duration-300 motion-reduce:transition-none hover:shadow-lg flex flex-col justify-between"
+                         data-aos="fade-up"
+                         data-aos-delay="{{ ($index + 1) * 80 }}">
+                    
+                    <div>
+                        <!-- Card Header: Category Title (Left) & Count Badge (Right) -->
+                        <div class="flex items-center justify-between gap-4 pb-4 mb-6 border-b border-slate-100 dark:border-[#1c202a]">
+                            <div class="flex items-center gap-2.5">
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight {{ $isLearningCard ? 'group-hover:text-amber-600 dark:group-hover:text-amber-400' : 'group-hover:text-blue-600 dark:group-hover:text-blue-400' }} transition-colors">
+                                    {{ $category['name'] }}
+                                </h3>
+                                @if($isLearningCard)
+                                    <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse" title="Sedang Dipelajari"></span>
+                                @endif
+                            </div>
 
-            <!-- A. Frontend Development -->
-            <article tabindex="0" class="group flex flex-col justify-between rounded-2xl bg-white dark:bg-[#111111] p-7 lg:p-8 border border-slate-200 dark:border-[#262626] hover:border-blue-500/60 dark:hover:border-blue-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-all duration-300 motion-reduce:transition-none hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 shadow-sm hover:shadow-md dark:shadow-none" data-aos="fade-up" data-aos-delay="100">
-                <div>
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-500/20 group-hover:scale-105 motion-reduce:group-hover:scale-100 transition-transform duration-300">
-                            <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                            </svg>
+                            <span class="inline-flex items-center justify-center min-w-[28px] h-7 px-2.5 rounded-full text-xs font-bold {{ $isLearningCard ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/25' : 'bg-slate-100 dark:bg-[#171b24] text-slate-600 dark:text-slate-400 border border-slate-200/80 dark:border-[#262b38] group-hover:border-blue-500/30 group-hover:text-blue-600 dark:group-hover:text-blue-400' }} transition-colors"
+                                  title="{{ count($category['items']) }} Teknologi">
+                                {{ count($category['items']) }}
+                            </span>
                         </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white transition-colors">
-                                Frontend Development
-                            </h3>
-                            <p class="mt-1.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                Membangun antarmuka web yang responsif, interaktif, dan mudah digunakan.
-                            </p>
-                        </div>
-                    </div>
-                </div>
 
-                <ul role="list" aria-label="Teknologi Frontend Development" class="flex flex-wrap gap-2.5 pt-6 mt-6 border-t border-slate-100 dark:border-[#1f1f1f]">
-                    <!-- HTML -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-orange-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                        </svg>
-                        <span>HTML</span>
-                    </li>
-                    <!-- CSS -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-blue-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
-                        </svg>
-                        <span>CSS</span>
-                    </li>
-                    <!-- JavaScript -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-yellow-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                        <span>JavaScript</span>
-                    </li>
-                    <!-- Blade -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-red-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                        </svg>
-                        <span>Blade</span>
-                    </li>
-                    <!-- Tailwind CSS -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-cyan-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
-                        </svg>
-                        <span>Tailwind CSS</span>
-                    </li>
-                    <!-- Alpine.js -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-sky-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                        <span>Alpine.js</span>
-                    </li>
-                </ul>
-            </article>
+                        <!-- Card Body: Logo Tiles Grid -->
+                        <div class="grid {{ $isLearningCard ? 'grid-cols-2' : 'grid-cols-3' }} gap-3 sm:gap-4">
+                            @foreach($category['items'] as $tech)
+                                @php
+                                    $isLearningItem = !empty($tech['learning']);
+                                @endphp
+                                <div class="group/item flex flex-col items-center text-center">
+                                    <!-- Dark Tile Box for Logo -->
+                                    <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-slate-50 dark:bg-[#151821] border {{ $isLearningItem ? 'border-amber-500/30 dark:border-amber-500/25 group-hover/item:border-amber-500/60 dark:group-hover/item:border-amber-400/60' : 'border-slate-200/80 dark:border-[#242936] group-hover/item:border-blue-500/50 dark:group-hover/item:border-blue-500/40' }} group-hover/item:bg-white dark:group-hover/item:bg-[#1a1f2c] group-hover/item:-translate-y-1 motion-reduce:group-hover/item:translate-y-0 transition-all duration-300 flex items-center justify-center shadow-sm dark:shadow-none mb-2.5">
+                                        <div class="group-hover/item:scale-110 motion-reduce:group-hover/item:scale-100 transition-transform duration-300 flex items-center justify-center">
+                                            {!! $tech['svg'] !!}
+                                        </div>
+                                    </div>
 
-            <!-- B. Backend Development -->
-            <article tabindex="0" class="group flex flex-col justify-between rounded-2xl bg-white dark:bg-[#111111] p-7 lg:p-8 border border-slate-200 dark:border-[#262626] hover:border-red-500/60 dark:hover:border-red-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-all duration-300 motion-reduce:transition-none hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 shadow-sm hover:shadow-md dark:shadow-none" data-aos="fade-up" data-aos-delay="200">
-                <div>
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-500/20 group-hover:scale-105 motion-reduce:group-hover:scale-100 transition-transform duration-300">
-                            <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white transition-colors">
-                                Backend Development
-                            </h3>
-                            <p class="mt-1.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                Mengembangkan logika aplikasi, pengelolaan request, autentikasi, dan pembatasan akses pengguna.
-                            </p>
+                                    <!-- Technology Name Below Logo -->
+                                    <span class="text-xs font-medium text-slate-700 dark:text-slate-300 group-hover/item:text-slate-900 dark:group-hover/item:text-white transition-colors leading-tight">
+                                        {{ $tech['name'] }}
+                                    </span>
+
+                                    <!-- Currently Learning Badge (Specifically for Next.js & TypeScript) -->
+                                    @if($isLearningItem)
+                                        <span class="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/25 leading-tight">
+                                            Currently Learning
+                                        </span>
+                                    @endif
+                                </div>
+                            @endforeach
                         </div>
                     </div>
-                </div>
 
-                <ul role="list" aria-label="Teknologi Backend Development" class="flex flex-wrap gap-2.5 pt-6 mt-6 border-t border-slate-100 dark:border-[#1f1f1f]">
-                    <!-- PHP -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-indigo-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                        </svg>
-                        <span>PHP</span>
-                    </li>
-                    <!-- Laravel -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-red-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                        </svg>
-                        <span>Laravel</span>
-                    </li>
-                    <!-- Eloquent ORM -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-rose-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
-                        </svg>
-                        <span>Eloquent ORM</span>
-                    </li>
-                    <!-- Authentication & RBAC -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-emerald-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                        </svg>
-                        <span>Authentication &amp; Role-Based Access Control (RBAC)</span>
-                    </li>
-                </ul>
-            </article>
-
-            <!-- C. Database -->
-            <article tabindex="0" class="group flex flex-col justify-between rounded-2xl bg-white dark:bg-[#111111] p-7 lg:p-8 border border-slate-200 dark:border-[#262626] hover:border-amber-500/60 dark:hover:border-amber-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-all duration-300 motion-reduce:transition-none hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 shadow-sm hover:shadow-md dark:shadow-none" data-aos="fade-up" data-aos-delay="300">
-                <div>
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-100 dark:border-amber-500/20 group-hover:scale-105 motion-reduce:group-hover:scale-100 transition-transform duration-300">
-                            <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white transition-colors">
-                                Database
-                            </h3>
-                            <p class="mt-1.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                Mengelola struktur dan relasi data untuk mendukung kebutuhan aplikasi web.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <ul role="list" aria-label="Teknologi Database" class="flex flex-wrap gap-2.5 pt-6 mt-6 border-t border-slate-100 dark:border-[#1f1f1f]">
-                    <!-- MySQL -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-amber-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
-                        </svg>
-                        <span>MySQL</span>
-                    </li>
-                    <!-- Database Migrations -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-blue-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                        </svg>
-                        <span>Database Migrations</span>
-                    </li>
-                    <!-- Relational Data Modeling -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-purple-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path>
-                        </svg>
-                        <span>Relational Data Modeling</span>
-                    </li>
-                </ul>
-            </article>
-
-            <!-- D. Development Tools -->
-            <article tabindex="0" class="group flex flex-col justify-between rounded-2xl bg-white dark:bg-[#111111] p-7 lg:p-8 border border-slate-200 dark:border-[#262626] hover:border-emerald-500/60 dark:hover:border-emerald-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-all duration-300 motion-reduce:transition-none hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 shadow-sm hover:shadow-md dark:shadow-none" data-aos="fade-up" data-aos-delay="400">
-                <div>
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-500/20 group-hover:scale-105 motion-reduce:group-hover:scale-100 transition-transform duration-300">
-                            <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white transition-colors">
-                                Development Tools
-                            </h3>
-                            <p class="mt-1.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                Mendukung pengembangan lokal, pengelolaan kode sumber, dan workflow proyek web.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <ul role="list" aria-label="Development Tools" class="flex flex-wrap gap-2.5 pt-6 mt-6 border-t border-slate-100 dark:border-[#1f1f1f]">
-                    <!-- Git -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-orange-600 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
-                        </svg>
-                        <span>Git</span>
-                    </li>
-                    <!-- GitHub -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-slate-700 dark:text-slate-300 shrink-0" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
-                        </svg>
-                        <span>GitHub</span>
-                    </li>
-                    <!-- Vite -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-purple-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                        <span>Vite</span>
-                    </li>
-                    <!-- XAMPP -->
-                    <li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-[#262626] group-hover:border-slate-300 dark:group-hover:border-[#333333] transition-colors">
-                        <svg class="w-4 h-4 text-orange-500 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"></path>
-                        </svg>
-                        <span>XAMPP</span>
-                    </li>
-                </ul>
-            </article>
-
+                </article>
+            @endforeach
         </div>
+
     </div>
 </section>
 
