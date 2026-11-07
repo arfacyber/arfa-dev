@@ -110,9 +110,9 @@
 
 <!-- SKILLS SECTION -->
 @php
-    $skillCategories = $skillCategories ?? [
+    $skillCategories = [
         [
-            'name' => 'Frontend Development',
+            'name' => 'Frontend',
             'is_learning' => false,
             'items' => [
                 [
@@ -138,7 +138,7 @@
                 [
                     'name' => 'Alpine.js',
                     'learning' => false,
-                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18.667 6L24 11.333 18.667 16.667 13.333 11.333 18.667 6z" fill="#77C1D2"/><path d="M5.333 6L16.333 17H5.667L0 11.333 5.333 6z" fill="#2D3441" class="dark:fill-slate-300"/></svg>',
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18.667 6L24 11.333 18.667 16.667 13.333 11.333 18.667 6z" fill="#77C1D2"/><path d="M5.333 6L16.333 17H5.667L0 11.333 5.333 6z" fill="#94A3B8"/></svg>',
                 ],
                 [
                     'name' => 'React.js',
@@ -148,7 +148,7 @@
             ],
         ],
         [
-            'name' => 'Backend Development',
+            'name' => 'Backend',
             'is_learning' => false,
             'items' => [
                 [
@@ -161,6 +161,16 @@
                     'learning' => false,
                     'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M23.642 5.43a.364.364 0 01.014.1v5.149c0 .135-.073.26-.189.326l-4.323 2.49v4.934a.378.378 0 01-.188.326L9.93 23.949a.337.337 0 01-.066.028c-.008.002-.016.008-.024.01a.348.348 0 01-.192 0c-.011-.002-.02-.008-.03-.012-.02-.008-.042-.014-.062-.025L.533 18.755a.376.376 0 01-.189-.326V2.97c0-.033.005-.066.014-.098.003-.012.01-.02.014-.032a.369.369 0 01.023-.058c.004-.01.015-.018.02-.026.015-.02.03-.04.048-.055.008-.007.018-.01.026-.016.02-.014.041-.029.065-.039l4.323-2.496a.376.376 0 01.375 0L9.575 2.65c.024.01.044.025.065.039.008.006.018.009.026.016.019.015.034.035.048.055.006.008.016.016.021.026.01.019.015.038.023.058.004.012.011.02.014.032.01.032.014.065.014.098v9.652l3.572-2.064V5.53c0-.033.004-.066.013-.098.003-.01.01-.02.013-.032a.387.387 0 01.024-.058c.005-.01.015-.018.02-.026.014-.02.03-.04.048-.055.008-.007.018-.01.026-.016.02-.014.04-.029.065-.039l4.323-2.496a.376.376 0 01.375 0l4.323 2.496c.023.01.044.025.065.039.008.006.018.009.025.016.019.015.034.035.048.055.006.008.016.016.021.026.01.019.016.038.024.058.003.012.01.02.013.032z" fill="#FF2D20"/></svg>',
                 ],
+                [
+                    'name' => 'Eloquent ORM',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" stroke="#FB7185" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+                ],
+                [
+                    'name' => 'Authentication & RBAC',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+                ],
             ],
         ],
         [
@@ -172,16 +182,15 @@
                     'learning' => false,
                     'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="#00758F" stroke-width="1.8"/><path d="M4 6v6c0 1.657 3.582 3 8 3s8-1.343 8-3V6" stroke="#00758F" stroke-width="1.8"/><path d="M4 12v6c0 1.657 3.582 3 8 3s8-1.343 8-3v-6" stroke="#F29111" stroke-width="1.8"/></svg>',
                 ],
-            ],
-        ],
-        [
-            'name' => 'Styling & UI',
-            'is_learning' => false,
-            'items' => [
                 [
-                    'name' => 'Tailwind CSS',
+                    'name' => 'Database Migrations',
                     'learning' => false,
-                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z" fill="#06B6D4"/></svg>',
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke="#38BDF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+                ],
+                [
+                    'name' => 'Relational Data Modeling',
+                    'learning' => false,
+                    'svg' => '<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" stroke="#F59E0B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
                 ],
             ],
         ],
@@ -231,23 +240,22 @@
 @endphp
 
 <section id="skills" aria-labelledby="skills-heading" class="relative py-24 overflow-hidden bg-slate-50 dark:bg-[#0a0a0a] transition-colors duration-500 motion-reduce:transition-none">
-    <!-- Subtle Dark-Futuristic Ambient Glow (Visible in Dark Mode) -->
+    <!-- Ambient Glow Halus pada Dark Mode -->
     <div class="pointer-events-none absolute inset-0 hidden dark:block overflow-hidden" aria-hidden="true">
         <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[550px] h-[250px] bg-blue-600/5 blur-[120px] rounded-full"></div>
     </div>
 
     <div class="relative max-w-7xl mx-auto px-6 lg:px-12">
-        
-        <!-- Section Header -->
+        <!-- Header Section -->
         <div class="max-w-3xl mb-16" data-aos="fade-up">
             <p class="text-blue-600 dark:text-blue-500 text-sm font-semibold tracking-widest uppercase mb-2">
-                Technical Arsenal
+                MY TOOLKIT
             </p>
             <h2 id="skills-heading" class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white tracking-tight transition-colors">
                 Skills &amp; Technologies
             </h2>
             <p class="mt-4 text-base lg:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                Teknologi yang saya gunakan untuk membangun website dan aplikasi web modern, beserta teknologi yang sedang saya eksplorasi.
+                Teknologi yang saya gunakan untuk membangun website dan aplikasi web melalui proyek nyata, beserta teknologi yang sedang saya pelajari.
             </p>
         </div>
 
@@ -257,12 +265,12 @@
                 @php
                     $isLearningCard = !empty($category['is_learning']);
                 @endphp
-                <article class="group rounded-2xl bg-white dark:bg-[#0f1117]/90 border {{ $isLearningCard ? 'border-dashed border-amber-400/60 dark:border-amber-500/30 hover:border-amber-500 dark:hover:border-amber-400/60 dark:hover:shadow-[0_0_30px_-10px_rgba(245,158,11,0.18)]' : 'border-slate-200 dark:border-[#222631] hover:border-blue-500/50 dark:hover:border-blue-500/40 dark:hover:shadow-[0_0_30px_-10px_rgba(59,130,246,0.2)]' }} p-6 sm:p-7 transition-all duration-300 motion-reduce:transition-none hover:shadow-lg flex flex-col justify-between"
+                <article class="group rounded-2xl bg-white dark:bg-[#0f1117]/95 border {{ $isLearningCard ? 'border-dashed border-amber-400/60 dark:border-amber-500/30 hover:border-amber-500 dark:hover:border-amber-400/60 dark:hover:shadow-[0_0_30px_-10px_rgba(245,158,11,0.18)]' : 'border-slate-200 dark:border-[#222631] hover:border-blue-500/50 dark:hover:border-blue-500/40 dark:hover:shadow-[0_0_30px_-10px_rgba(59,130,246,0.2)]' }} p-6 sm:p-7 transition-all duration-300 motion-reduce:transition-none hover:shadow-lg flex flex-col justify-between"
                          data-aos="fade-up"
                          data-aos-delay="{{ ($index + 1) * 80 }}">
                     
                     <div>
-                        <!-- Card Header: Category Title (Left) & Count Badge (Right) -->
+                        <!-- Card Header: Judul di Kiri Atas & Badge Jumlah di Kanan Atas -->
                         <div class="flex items-center justify-between gap-4 pb-4 mb-6 border-b border-slate-100 dark:border-[#1c202a]">
                             <div class="flex items-center gap-2.5">
                                 <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight {{ $isLearningCard ? 'group-hover:text-amber-600 dark:group-hover:text-amber-400' : 'group-hover:text-blue-600 dark:group-hover:text-blue-400' }} transition-colors">
@@ -279,29 +287,29 @@
                             </span>
                         </div>
 
-                        <!-- Card Body: Logo Tiles Grid -->
-                        <div class="grid {{ $isLearningCard ? 'grid-cols-2' : 'grid-cols-3' }} gap-3 sm:gap-4">
+                        <!-- Card Body: Grid Kotak Logo Teknologi -->
+                        <div class="grid grid-cols-3 gap-3 sm:gap-4">
                             @foreach($category['items'] as $tech)
                                 @php
                                     $isLearningItem = !empty($tech['learning']);
                                 @endphp
                                 <div class="group/item flex flex-col items-center text-center">
-                                    <!-- Dark Tile Box for Logo -->
+                                    <!-- Kotak Kecil (Dark Tile) untuk Logo -->
                                     <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-slate-50 dark:bg-[#151821] border {{ $isLearningItem ? 'border-amber-500/30 dark:border-amber-500/25 group-hover/item:border-amber-500/60 dark:group-hover/item:border-amber-400/60' : 'border-slate-200/80 dark:border-[#242936] group-hover/item:border-blue-500/50 dark:group-hover/item:border-blue-500/40' }} group-hover/item:bg-white dark:group-hover/item:bg-[#1a1f2c] group-hover/item:-translate-y-1 motion-reduce:group-hover/item:translate-y-0 transition-all duration-300 flex items-center justify-center shadow-sm dark:shadow-none mb-2.5">
                                         <div class="group-hover/item:scale-110 motion-reduce:group-hover/item:scale-100 transition-transform duration-300 flex items-center justify-center">
                                             {!! $tech['svg'] !!}
                                         </div>
                                     </div>
 
-                                    <!-- Technology Name Below Logo -->
-                                    <span class="text-xs font-medium text-slate-700 dark:text-slate-300 group-hover/item:text-slate-900 dark:group-hover/item:text-white transition-colors leading-tight">
+                                    <!-- Nama Teknologi di Bawah Logo -->
+                                    <span class="text-[11px] sm:text-xs font-medium text-slate-700 dark:text-slate-300 group-hover/item:text-slate-900 dark:group-hover/item:text-white transition-colors leading-snug">
                                         {{ $tech['name'] }}
                                     </span>
 
-                                    <!-- Currently Learning Badge (Specifically for Next.js & TypeScript) -->
+                                    <!-- Badge Currently Learning untuk Next.js & TypeScript -->
                                     @if($isLearningItem)
-                                        <span class="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/25 leading-tight">
-                                            Currently Learning
+                                        <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold uppercase tracking-wider bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/25 leading-none">
+                                            Learning
                                         </span>
                                     @endif
                                 </div>
