@@ -485,41 +485,119 @@
 </section>
 
 <!-- SERVICES SECTION -->
-<section id="services" class="py-24 overflow-hidden bg-slate-50 dark:bg-[#0a0a0a] transition-colors duration-500">
+@php
+    // URL utama website Services
+    $servicesBaseUrl = 'https://services.wawansugianto.my.id';
+
+    // Pastikan path/anchor di bawah ini sesuai dengan route/section konsultasi aktual di website Services Anda
+    // (Gunakan hasil pemeriksaan route/grep di terminal, misalnya: '#contact', '#consultation', atau '/consultation')
+    $consultationUrl = 'https://services.wawansugianto.my.id/#contact';
+@endphp
+
+<section id="services" aria-labelledby="services-heading" class="py-24 bg-white/50 dark:bg-[#111111]/30 border-y border-slate-200 dark:border-[#262626]/50 overflow-hidden transition-colors duration-500">
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
-        <div class="mb-16 text-center" data-aos="fade-up">
-            <p class="text-blue-600 dark:text-blue-500 text-sm font-semibold tracking-widest uppercase mb-2">What I Can Do</p>
-            <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white transition-colors">Services</h2>
+        
+        <!-- Section Header & Introductory Text -->
+        <div class="max-w-3xl mb-16" data-aos="fade-up">
+            <p class="text-blue-600 dark:text-blue-500 text-sm font-semibold tracking-widest uppercase mb-2">
+                What I Offer
+            </p>
+            <h2 id="services-heading" class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white tracking-tight transition-colors">
+                Services
+            </h2>
+            <p class="mt-4 text-base lg:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+                Explore my web development services, from business websites to custom web applications. Discover available packages, pricing, and project consultation options.
+            </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Service 1 -->
-            <div class="p-8 rounded-2xl bg-white dark:bg-[#111111] border border-slate-200 dark:border-[#262626] hover:border-blue-400 dark:hover:border-blue-500/50 transition-colors duration-300 text-center shadow-sm dark:shadow-none" data-aos="zoom-in" data-aos-delay="100">
-                <div class="w-12 h-12 mx-auto bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] rounded-full flex items-center justify-center mb-6 transition-colors">
-                    <svg class="w-6 h-6 text-blue-600 dark:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+        <!-- Three Service Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- 1. Business Website -->
+            <div class="p-8 rounded-2xl bg-white dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] hover:border-blue-500 dark:hover:border-blue-500/50 transition-all duration-300 group shadow-sm dark:shadow-none flex flex-col justify-between" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-500 border border-blue-100 dark:border-blue-500/20 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        Business Website
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
+                        Website profesional untuk bisnis, brand, organisasi, atau personal brand.
+                    </p>
                 </div>
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 transition-colors">Business Website</h3>
-                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed transition-colors">Website profesional untuk bisnis, brand, organisasi, atau personal brand.</p>
             </div>
 
-            <!-- Service 2 -->
-            <div class="p-8 rounded-2xl bg-white dark:bg-[#111111] border border-slate-200 dark:border-[#262626] hover:border-blue-400 dark:hover:border-blue-500/50 transition-colors duration-300 text-center shadow-sm dark:shadow-none" data-aos="zoom-in" data-aos-delay="200">
-                <div class="w-12 h-12 mx-auto bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] rounded-full flex items-center justify-center mb-6 transition-colors">
-                    <svg class="w-6 h-6 text-blue-600 dark:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+            <!-- 2. Custom Web Application -->
+            <div class="p-8 rounded-2xl bg-white dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] hover:border-purple-500 dark:hover:border-purple-500/50 transition-all duration-300 group shadow-sm dark:shadow-none flex flex-col justify-between" data-aos="fade-up" data-aos-delay="200">
+                <div>
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6 bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-100 dark:border-purple-500/20 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                        Custom Web Application
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
+                        Aplikasi web custom yang dibuat sesuai kebutuhan dan workflow spesifik.
+                    </p>
                 </div>
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 transition-colors">Custom Web Application</h3>
-                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed transition-colors">Aplikasi web custom yang dibuat sesuai kebutuhan dan workflow spesifik.</p>
             </div>
 
-            <!-- Service 3 -->
-            <div class="p-8 rounded-2xl bg-white dark:bg-[#111111] border border-slate-200 dark:border-[#262626] hover:border-blue-400 dark:hover:border-blue-500/50 transition-colors duration-300 text-center shadow-sm dark:shadow-none" data-aos="zoom-in" data-aos-delay="300">
-                <div class="w-12 h-12 mx-auto bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] rounded-full flex items-center justify-center mb-6 transition-colors">
-                    <svg class="w-6 h-6 text-blue-600 dark:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            <!-- 3. Website Maintenance -->
+            <div class="p-8 rounded-2xl bg-white dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] hover:border-emerald-500 dark:hover:border-emerald-500/50 transition-all duration-300 group shadow-sm dark:shadow-none flex flex-col justify-between" data-aos="fade-up" data-aos-delay="300">
+                <div>
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-500 border border-emerald-100 dark:border-emerald-500/20 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                        Website Maintenance
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
+                        Maintenance, improvement, bug fixing, optimization, dan pengembangan fitur.
+                    </p>
                 </div>
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 transition-colors">Website Maintenance</h3>
-                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed transition-colors">Maintenance, improvement, bug fixing, optimization, dan pengembangan fitur.</p>
+            </div>
+
+        </div>
+
+        <!-- Call to Action Buttons (Primary & Secondary) -->
+        <div class="mt-12 pt-8 border-t border-slate-200/70 dark:border-[#262626]/70 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-6" data-aos="fade-up" data-aos-delay="400">
+            <p class="text-sm text-slate-500 dark:text-slate-400">
+                Lihat detail paket layanan, estimasi harga, dan alur kerja selengkapnya di portal layanan resmi.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center gap-4 shrink-0">
+                <!-- Primary Button: Explore All Services -->
+                <a href="{{ $servicesBaseUrl }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="w-full sm:w-auto px-7 py-3.5 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-xl transition-all duration-300 shadow-lg shadow-blue-600/20 hover:shadow-blue-500/30 inline-flex items-center justify-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+                    <span>Explore All Services</span>
+                    <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </a>
+
+                <!-- Secondary Button: Discuss a Project -->
+                <a href="{{ $consultationUrl }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="w-full sm:w-auto px-7 py-3.5 bg-white dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#262626] hover:border-blue-500 dark:hover:border-blue-500 text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 text-sm font-bold rounded-xl transition-all duration-300 inline-flex items-center justify-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    </svg>
+                    <span>Discuss a Project</span>
+                </a>
             </div>
         </div>
+
     </div>
 </section>
 
